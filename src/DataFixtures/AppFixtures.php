@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataFixtures;
+namespace VirtualCard\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;

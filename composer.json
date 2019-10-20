@@ -50,12 +50,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "VirtualCard\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "VirtualCard\\Tests\\": "tests/"
         }
     },
     "replace": {
