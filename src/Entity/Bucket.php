@@ -3,10 +3,13 @@
 namespace VirtualCard\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="bucket")
  * @ORM\Entity(repositoryClass="VirtualCard\Repository\BucketRepository")
+ *
+ * @Assert\Callback({"VirtualCard\Service\Bucket\Validator", "validate"})
  */
 class Bucket
 {
@@ -19,28 +22,38 @@ class Bucket
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\NotBlank()
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\NotBlank()
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank()
      */
     private $balance;
 
     /**
      * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Currency")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $currency;
 
     /**
      * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Vendor", inversedBy="buckets")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $vendor;
 

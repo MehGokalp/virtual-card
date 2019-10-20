@@ -10,12 +10,21 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    VirtualCard\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+    # Just enable service injection in service classes
+    # We do not need to keep other classes in our container
+    VirtualCard\Service\:
+        resource: '../src/Service/*'
+
+    VirtualCard\DataFixtures\:
+        resource: '../src/DataFixtures/*'
+
+    VirtualCard\Repository\:
+        resource: '../src/Repository/*'
+
+    VirtualCard\Security\:
+        resource: '../src/Security/*'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

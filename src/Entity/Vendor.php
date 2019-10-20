@@ -5,6 +5,7 @@ namespace VirtualCard\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="vendor")
@@ -12,6 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Vendor
 {
+    public const BEAR = 'bear';
+    public const LION = 'lion';
+    public const RHINO = 'rhino';
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,16 +26,22 @@ class Vendor
 
     /**
      * @ORM\Column(type="string", length=32)
+     *
+     * @Assert\NotBlank()
      */
     private $slug;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank()
      */
     private $bucketLimit;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank()
      */
     private $bucketDateDelta;
 

@@ -24,7 +24,7 @@ final class Version20191020100942 extends AbstractMigration
 
         $this->addSql('CREATE TABLE virtual_card (id INT AUTO_INCREMENT NOT NULL, currency_id INT NOT NULL, vendor_id INT NOT NULL, balance INT NOT NULL, activation_date DATETIME NOT NULL, expire_date DATETIME NOT NULL, notes VARCHAR(2048) DEFAULT NULL, process_id VARCHAR(255) NOT NULL, reference VARCHAR(255) NOT NULL, card_number VARCHAR(255) NOT NULL, cvc VARCHAR(255) NOT NULL, deleted_at DATETIME DEFAULT NULL, INDEX IDX_FF9C85EB38248176 (currency_id), INDEX IDX_FF9C85EBF603EE73 (vendor_id), PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE vendor (id INT AUTO_INCREMENT NOT NULL, slug VARCHAR(32) NOT NULL, bucket_limit INT NOT NULL, bucket_date_delta INT NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE currency (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(16) NOT NULL, code VARCHAR(4) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE currency (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(4) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE bucket (id INT AUTO_INCREMENT NOT NULL, currency_id INT NOT NULL, vendor_id INT NOT NULL, start_date DATETIME NOT NULL, end_date DATETIME NOT NULL, balance INT NOT NULL, INDEX IDX_E73F36A638248176 (currency_id), INDEX IDX_E73F36A6F603EE73 (vendor_id), PRIMARY KEY(id))');
         $this->addSql('ALTER TABLE virtual_card ADD CONSTRAINT FK_FF9C85EB38248176 FOREIGN KEY (currency_id) REFERENCES currency (id)');
         $this->addSql('ALTER TABLE virtual_card ADD CONSTRAINT FK_FF9C85EBF603EE73 FOREIGN KEY (vendor_id) REFERENCES vendor (id)');
