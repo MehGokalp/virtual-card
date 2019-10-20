@@ -121,7 +121,7 @@ class BucketFactoryTest extends WebTestCase
         return [
             [ 10, 200, Currency::USD, '2020-01-01', '2020-01-12' ], // Delta is not true
             [ 10, 200, Currency::USD, '2020-01-05', '2020-01-01' ], // End date is before start date
-            [ 10, 200, Currency::USD, '2020-01-11', '2020-01-01' ], // End date is before start date
+            [ 10, 200, Currency::USD, '2020-01-11', '2020-01-01' ], // End date is before start date and date range is same but negative
             [ 10, 200, Currency::USD, '2020-01-03 23:59:59', '2020-01-11 23:59:59' ],
         ];
     }

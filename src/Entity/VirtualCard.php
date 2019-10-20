@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="virtual_card")
@@ -26,53 +27,73 @@ class VirtualCard
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Assert\NotBlank()
      */
     private $balance;
 
     /**
      * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Currency")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $currency;
 
     /**
      * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Vendor", inversedBy="virtualCards")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $vendor;
 
     /**
      * @ORM\Column(type="date")
+     *
+     * @Assert\NotBlank()
      */
     private $activationDate;
 
     /**
      * @ORM\Column(type="date")
+     *
+     * @Assert\NotBlank()
      */
     private $expireDate;
 
     /**
      * @ORM\Column(type="string", length=2048, nullable=true)
+     *
+     * @Assert\Length(max="2048")
      */
     private $notes;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $processId;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $cardNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $cvc;
 
