@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualCard\Controller;
+namespace VirtualCard\Controller\VirtualCard;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations;
@@ -8,30 +8,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateVirtualCardController extends AbstractFOSRestController
+class ListController extends AbstractFOSRestController
 {
     /**
-     * Create virtual card with given parameters
+     * List virtual cards with given filters
      *
-     * @Annotations\Get("/virtual-card/add")
+     * @Annotations\Get("/virtual-card/list")
      *
      * @SWG\Tag(name="Virtual Card API")
-     *
-     * @SWG\Get(
-     *     security={
-     *         {"AuthToken":{}}
-     *     },
-     *     @SWG\Swagger(
-     *         schemes={"https"},
-     *         @SWG\SecurityScheme(
-     *             name="X-AUTH-TOKEN",
-     *             type="apiKey",
-     *             in="header",
-     *             securityDefinition="AuthToken",
-     *             description="Auth token"
-     *         )
-     *     )
-     * )
      *
      * @SWG\Parameter(
      *     name="processId",

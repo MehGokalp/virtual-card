@@ -3,6 +3,12 @@ nelmio_api_doc:
         info:
             title: Virtual Card App
             version: 1.0.0
+        securityDefinitions:
+            X-AUTH-TOKEN:
+                type: apiKey
+                in: header
+                name: X-AUTH-TOKEN
+                description: Auth Token
     areas: # to filter documented areas
         path_patterns:
             - ^/virtual-card
