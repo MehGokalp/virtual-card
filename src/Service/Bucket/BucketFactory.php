@@ -26,9 +26,12 @@ class BucketFactory extends AbstractFactory
      */
     public function create(DateTime $startDate, DateTime $endDate, Vendor $vendor, Currency $currency): Bucket
     {
+        $clonedStartDate = (clone $startDate)->setTime(0, 0, 0);
+        $clonedEndDate = (clone $endDate)->setTime(0, 0, 0);
+        
         $bucket = (new Bucket())
-            ->setStartDate($startDate)
-            ->setEndDate($endDate)
+            ->setStartDate($clonedStartDate)
+            ->setEndDate($clonedEndDate)
             ->setCurrency($currency)
             ->setVendor($vendor)
             ->setBalance($vendor->getBucketLimit())

@@ -24,14 +24,14 @@ class Bucket
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      *
      * @Assert\NotBlank()
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      *
      * @Assert\NotBlank()
      */
