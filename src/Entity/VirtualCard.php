@@ -3,7 +3,9 @@
 namespace VirtualCard\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Table(name="virtual_card")
@@ -11,7 +13,9 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  */
 class VirtualCard
 {
-    use SoftDeleteableEntity;
+    use SoftDeleteableEntity,
+        BlameableEntity,
+        TimestampableEntity;
     
     /**
      * @ORM\Id()

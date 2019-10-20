@@ -3,6 +3,7 @@
 namespace VirtualCard\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Bucket
 {
+    use TimestampableEntity;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

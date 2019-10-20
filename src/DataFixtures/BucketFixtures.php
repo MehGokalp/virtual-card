@@ -40,11 +40,11 @@ class BucketFixtures extends Fixture implements DependentFixtureInterface
             Vendor::LION => [
                 [ '2020-01-01', Currency::USD ],
                 [ '2020-01-15', Currency::USD ],
-                [ '2020-01-29',  Currency::USD ]
+                [ '2020-01-29', Currency::USD ]
             ],
             Vendor::RHINO => [
                 [ '2020-01-01', Currency::USD ],
-                [ '2020-01-21',  Currency::USD ]
+                [ '2020-01-21', Currency::USD ]
             ]
         ];
         
