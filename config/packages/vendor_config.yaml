@@ -1,0 +1,7 @@
+vendor_config:
+    bear:
+        create: VirtualCard\Vendor\Bear\Service\Create
+    lion:
+        create: VirtualCard\Vendor\Lion\Service\Create
+    rhino:
+        create: VirtualCard\Vendor\Rhino\Service\Create

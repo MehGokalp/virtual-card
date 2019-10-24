@@ -7,6 +7,7 @@ use FOS\RestBundle\Controller\Annotations;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use VirtualCard\Service\VirtualCard\Create\VirtualCardCreateWrapper;
 
 class DeleteController extends AbstractFOSRestController
 {
@@ -53,9 +54,10 @@ class DeleteController extends AbstractFOSRestController
      * )
      *
      * @param Request $request
+     * @param VirtualCardCreateWrapper $virtualCardWrapper
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, VirtualCardCreateWrapper $virtualCardWrapper): Response
     {
     
     }

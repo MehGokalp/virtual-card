@@ -44,7 +44,7 @@ class VirtualCard
      * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Vendor", inversedBy="virtualCards")
      * @ORM\JoinColumn(nullable=false)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"insertion"})
      */
     private $vendor;
 
@@ -79,21 +79,21 @@ class VirtualCard
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"insertion"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"insertion"})
      */
     private $cardNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"insertion"})
      */
     private $cvc;
 

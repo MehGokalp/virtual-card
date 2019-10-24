@@ -5,8 +5,13 @@ namespace VirtualCard\Controller\VirtualCard;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use VirtualCard\Exception\VirtualCard\NoMatchingBucketException;
+use VirtualCard\Form\VirtualCardType;
+use VirtualCard\Service\VirtualCard\Create\VirtualCardCreateWrapper;
 
 class CreateController extends AbstractFOSRestController
 {
@@ -103,10 +108,24 @@ class CreateController extends AbstractFOSRestController
      * )
      *
      * @param Request $request
+     * @param VirtualCardCreateWrapper $virtualCardWrapper
+     * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, VirtualCardCreateWrapper $virtualCardWrapper, FormFactoryInterface $formFactory): Response
     {
-    
+        $form = $formFactory->create(VirtualCardType::class);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() === true && $form->isValid() === true) {
+            try {
+                $virtualCardWrapper->add($form->getData());
+            } catch (NoMatchingBucketException $e) {
+                //TODO FILL THAT BLOCK
+            }
+        }
+        
+        throw new BadRequestHttpException('Your data that you sent is not valid.');
     }
 }

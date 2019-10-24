@@ -60,6 +60,16 @@ class Bucket
      */
     private $vendor;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private $expired = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Bucket")
+     */
+    private $parent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +131,30 @@ class Bucket
     public function setVendor(?Vendor $vendor): self
     {
         $this->vendor = $vendor;
+
+        return $this;
+    }
+
+    public function getExpired(): ?bool
+    {
+        return $this->expired;
+    }
+
+    public function setExpired(bool $expired): self
+    {
+        $this->expired = $expired;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
 
         return $this;
     }
