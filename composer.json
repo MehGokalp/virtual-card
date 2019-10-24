@@ -5,6 +5,8 @@
         "php": "^7.2.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "alcaeus/mongo-php-adapter": "^1.1",
         "friendsofsymfony/rest-bundle": "^2.5",
         "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-paginator-bundle": "^4.0",
@@ -32,8 +34,7 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/yaml": "4.3.*",
-        "ext-json": "*",
-        "ext-mongo": "*"
+        "ext-curl": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.2",

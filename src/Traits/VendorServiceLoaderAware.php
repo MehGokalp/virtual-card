@@ -24,7 +24,7 @@ trait VendorServiceLoaderAware
      * @param VendorServiceLoader $vendorServiceLoader
      * @return VendorServiceLoaderAware
      */
-    public function setVendorServiceLoader(VendorServiceLoader $vendorServiceLoader): VendorServiceLoaderAware
+    public function setVendorServiceLoader(VendorServiceLoader $vendorServiceLoader): self
     {
         $this->vendorServiceLoader = $vendorServiceLoader;
         

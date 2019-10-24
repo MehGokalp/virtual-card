@@ -17,7 +17,7 @@ class Result
     /**
      * @var string|null
      */
-    private $cvv;
+    private $cvc;
     
     /**
      * @var string|null
@@ -70,18 +70,18 @@ class Result
     /**
      * @return string|null
      */
-    public function getCvv(): ?string
+    public function getCvc(): ?string
     {
-        return $this->cvv;
+        return $this->cvc;
     }
     
     /**
-     * @param string|null $cvv
+     * @param string|null $cvc
      * @return Result
      */
-    public function setCvv(?string $cvv): Result
+    public function setCvc(?string $cvc): Result
     {
-        $this->cvv = $cvv;
+        $this->cvc = $cvc;
         
         return $this;
     }

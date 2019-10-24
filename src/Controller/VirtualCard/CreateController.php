@@ -9,16 +9,22 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Throwable;
 use VirtualCard\Exception\VirtualCard\NoMatchingBucketException;
 use VirtualCard\Form\VirtualCardType;
 use VirtualCard\Service\VirtualCard\Create\VirtualCardCreateWrapper;
+use VirtualCard\Traits\LoggerTrait;
 
 class CreateController extends AbstractFOSRestController
 {
+    use LoggerTrait;
+    
     /**
      * Create virtual card with given parameters
      *
-     * @Annotations\Put("/virtual-card/add")
+     * @Annotations\Put("/virtual-card/add.{_format}")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -120,9 +126,17 @@ class CreateController extends AbstractFOSRestController
         
         if ($form->isSubmitted() === true && $form->isValid() === true) {
             try {
-                $virtualCardWrapper->add($form->getData());
+                $result = $virtualCardWrapper->add($form->getData());
+                
+                $view = $this->view($result, 200);
+                
+                return $this->handleView($view);
             } catch (NoMatchingBucketException $e) {
-                //TODO FILL THAT BLOCK
+                throw new NotAcceptableHttpException($e->getMessage(), $e);
+            } catch (Throwable $e) {
+                $this->logger->alert($e);
+                
+                throw new ServiceUnavailableHttpException();
             }
         }
         

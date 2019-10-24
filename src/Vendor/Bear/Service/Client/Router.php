@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualCard\Vendor\Bear\Service;
+namespace VirtualCard\Vendor\Bear\Service\Client;
 
 use VirtualCard\Exception\Client\RouterMethodNotFoundException;
 use VirtualCard\Service\VendorServiceLoader;

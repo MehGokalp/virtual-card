@@ -4,14 +4,19 @@ services:
         autoconfigure: true
         public: false
 
-    VirtualCard\Vendor\Bear\Service\Router:
+    VirtualCard\Vendor\Bear\Service\Client\Router:
         arguments:
-            - '%env(VENDOR_BEAR_WS)%'
+            $webServiceUrl: '%env(VENDOR_BEAR_WS)%'
 
-    VirtualCard\Vendor\Lion\Service\Create:
-        arguments:
-            - '%env(VENDOR_LION_WS)%'
+#    VirtualCard\Vendor\Lion\Service\Create:
+#        arguments:
+#            - '%env(VENDOR_LION_WS)%'
+#
+#    VirtualCard\Vendor\Rhino\Service\Create:
+#        arguments:
+#            - '%env(VENDOR_RHINO_WS)%'
 
-    VirtualCard\Vendor\Rhino\Service\Create:
+    VirtualCard\Service\Client\ClientFactory:
         arguments:
-            - '%env(VENDOR_RHINO_WS)%'
+            $mongoDatabaseName: 'virtual_card'
+            $mongoCollectionName: 'logs'

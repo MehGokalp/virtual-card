@@ -5,6 +5,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
+use MongoClient;
 use Monolog\Handler\MongoDBHandler;
 use Monolog\Logger;
 use VirtualCard\Library\Client\GuzzleLogProcessor;
@@ -13,7 +14,7 @@ class ClientFactory
 {
     
     /**
-     * @var \MongoClient $mongo
+     * @var MongoClient
      */
     protected $mongo;
     
@@ -33,7 +34,7 @@ class ClientFactory
      * @param string $mongoDatabaseName
      * @param string $mongoCollectionName
      */
-    public function __construct($mongo, string $mongoDatabaseName, string $mongoCollectionName)
+    public function __construct(MongoClient $mongo, string $mongoDatabaseName, string $mongoCollectionName)
     {
         $this->mongo = $mongo;
         $this->mongoDatabaseName = $mongoDatabaseName;

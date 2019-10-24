@@ -84,7 +84,7 @@ class VirtualCard
     private $reference;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      *
      * @Assert\NotBlank(groups={"insertion"})
      */

@@ -50,8 +50,8 @@ class GuzzleLogProcessor
      */
     public function parseMessage($message): array
     {
-        [$target, $poolName, $method, $process_id, $vendor, $req_headers, $res_headers, $request, $response, $code] = explode(self::DELIMITER, $message);
+        [$target, $method, $process_id, $vendor, $req_headers, $res_headers, $request, $response, $code] = explode(self::DELIMITER, $message);
         
-        return compact('target', 'poolName', 'method', 'process_id', 'vendor', 'req_headers', 'res_headers', 'request', 'response', 'code');
+        return compact('target', 'method', 'process_id', 'vendor', 'req_headers', 'res_headers', 'request', 'response', 'code');
     }
 }

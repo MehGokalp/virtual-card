@@ -35,7 +35,7 @@ class BucketRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->join('b.vendor', 'v')
             ->join('b.currency', 'c')
-            ->andWhere('b.startDate > :startDate AND b.endDate < :endDate AND b.expire = 0 AND b.balance > :balance')
+            ->andWhere('b.startDate <= :startDate AND b.endDate >= :endDate AND b.expired = 0 AND b.balance > :balance')
             ->setParameter('startDate', $activationDate->format('Y-m-d'))
             ->setParameter('endDate', $expireDate->format('Y-m-d'))
             ->setParameter('balance', $balance)

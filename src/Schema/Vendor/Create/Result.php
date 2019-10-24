@@ -24,7 +24,7 @@ class Result
      * @var string|null
      *
      * @Assert\NotBlank()
-     * @Assert\Length({ min="3", max="3" })
+     * @Assert\Length(max="3", min="3")
      */
     private $cvv;
     

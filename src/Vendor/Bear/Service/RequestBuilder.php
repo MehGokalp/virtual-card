@@ -5,6 +5,7 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use VirtualCard\Entity\Vendor;
 use VirtualCard\Exception\Client\RouterMethodNotFoundException;
+use VirtualCard\Vendor\Bear\Service\Client\Router;
 
 class RequestBuilder
 {
@@ -28,7 +29,7 @@ class RequestBuilder
     {
         $headers = [
             'X-Method' => $method,
-            'X-Request-Id' => $processId,
+            'X-Process-Id' => $processId,
             'X-Vendor' => Vendor::BEAR,
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',

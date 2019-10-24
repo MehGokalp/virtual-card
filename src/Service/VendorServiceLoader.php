@@ -1,6 +1,7 @@
 <?php
 namespace VirtualCard\Service;
 
+use LogicException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use VirtualCard\DependencyInjection\VendorServiceExtension;
 use VirtualCard\Vendor\VendorServiceInterface;
@@ -20,7 +21,6 @@ class VendorServiceLoader
     private $services = [];
     
     /**
-     * ProviderServiceLoader constructor.
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)

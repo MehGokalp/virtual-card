@@ -12,11 +12,14 @@ use VirtualCard\Library\Helper\VirtualCardHelper;
 use VirtualCard\Repository\BucketRepository;
 use VirtualCard\Schema\VirtualCard\Create\Result as CreateResult;
 use VirtualCard\Service\Currency\CurrencyWrapper;
+use VirtualCard\Traits\EntityManagerAware;
 use VirtualCard\Traits\LoggerTrait;
 
 class VirtualCardCreateWrapper
 {
-    use LoggerTrait;
+    use LoggerTrait,
+        EntityManagerAware
+    ;
     
     /**
      * @var VirtualCardCreateHandler
@@ -65,8 +68,11 @@ class VirtualCardCreateWrapper
                 $vendor = $bucket->getVendor();
                 $createResult = $this->virtualCardCreateHandler->handle($virtualCard, $vendor);
                 
-                $entityId = $this->createEntities($createResult, $vendor);
-                $createResult->setVirtualCardId($entityId);
+                $this->buildVirtualCard($virtualCard, $vendor, $createResult);
+                //TODO REDUCE BUCKET'S AMOUNT
+                
+                $this->save($virtualCard);
+                $createResult->setVirtualCardId($virtualCard->getId());
                 
                 return $createResult;
             } catch (Throwable $e) {
@@ -90,8 +96,19 @@ class VirtualCardCreateWrapper
         return $balance;
     }
     
-    protected function createEntities(CreateResult $createResult, Vendor $vendor): int
+    protected function buildVirtualCard(VirtualCard $virtualCard, Vendor $vendor, CreateResult $createResult): void
     {
+        $virtualCard
+            ->setVendor($vendor)
+            ->setCardNumber($createResult->getCardNumber())
+            ->setCvc($createResult->getCvc())
+            ->setReference($createResult->getReference())
+        ;
+    }
     
+    protected function save(VirtualCard $virtualCard): void
+    {
+        $this->em->persist($virtualCard);
+        $this->em->flush();
     }
 }

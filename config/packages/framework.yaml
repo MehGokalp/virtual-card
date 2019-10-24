@@ -1,4 +1,5 @@
 framework:
+    templating: { engines: ['twig'] }
     secret: '%env(APP_SECRET)%'
     validation: { enable_annotations: true }
     cache:

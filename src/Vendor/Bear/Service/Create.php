@@ -5,26 +5,22 @@ use GuzzleHttp\Exception\GuzzleException;
 use VirtualCard\Entity\VirtualCard;
 use VirtualCard\Exception\Client\RouterMethodNotFoundException;
 use VirtualCard\Schema\Vendor\Create\Result as CreateResult;
-use VirtualCard\Service\Client\ClientFactory;
 use VirtualCard\Service\VendorServiceLoader;
 use VirtualCard\Vendor\Bear\Response\Parser\CreateResponseParser;
+use VirtualCard\Vendor\Bear\Service\Client\ClientWrapper;
 use VirtualCard\Vendor\CreateInterface;
+use VirtualCard\Vendor\VendorServiceInterface;
 
-class Create implements CreateInterface
+class Create implements CreateInterface, VendorServiceInterface
 {
     /**
-     * @var RequestBuilder
+     * @var ClientWrapper
      */
-    private $requestBuilder;
-    /**
-     * @var ClientFactory
-     */
-    private $clientFactory;
+    private $clientWrapper;
     
-    public function __construct(RequestBuilder $requestBuilder, ClientFactory $clientFactory)
+    public function __construct(ClientWrapper $clientWrapper)
     {
-        $this->requestBuilder = $requestBuilder;
-        $this->clientFactory = $clientFactory;
+        $this->clientWrapper = $clientWrapper;
     }
     
     /**
@@ -35,11 +31,8 @@ class Create implements CreateInterface
      */
     public function getResult(VirtualCard $virtualCard): CreateResult
     {
-        $request = $this->requestBuilder->build(VendorServiceLoader::CREATE, $virtualCard->getProcessId());
-        $client = $this->clientFactory->get();
+        $response = $this->clientWrapper->request(VendorServiceLoader::CREATE, $virtualCard->getProcessId());
         
-        $response = $client->send($request);
-        
-        return CreateResponseParser::parse((string) $response);
+        return CreateResponseParser::parse((string) $response->getBody());
     }
 }

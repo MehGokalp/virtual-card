@@ -17,6 +17,9 @@ services:
     VirtualCard\Service\:
         resource: '../src/Service/*'
 
+    VirtualCard\Vendor\:
+        resource: '../src/Vendor/*/Service/*'
+
     VirtualCard\DataFixtures\:
         resource: '../src/DataFixtures/*'
 
@@ -32,3 +35,8 @@ services:
     VirtualCard\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    MongoClient:
+        class:  MongoClient
+        arguments:
+            - "%env(MONGO_URL)%"
