@@ -8,13 +8,13 @@ services:
         arguments:
             $webServiceUrl: '%env(VENDOR_BEAR_WS)%'
 
-#    VirtualCard\Vendor\Lion\Service\Create:
-#        arguments:
-#            - '%env(VENDOR_LION_WS)%'
-#
-#    VirtualCard\Vendor\Rhino\Service\Create:
-#        arguments:
-#            - '%env(VENDOR_RHINO_WS)%'
+    VirtualCard\Vendor\Lion\Service\Client\Router:
+        arguments:
+            $webServiceUrl: '%env(VENDOR_LION_WS)%'
+
+    VirtualCard\Vendor\Rhino\Service\Client\Router:
+        arguments:
+            $webServiceUrl: '%env(VENDOR_RHINO_WS)%'
 
     VirtualCard\Service\Client\ClientFactory:
         arguments:

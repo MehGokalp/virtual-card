@@ -72,7 +72,11 @@ class VirtualCardCreateWrapper
                 //TODO REDUCE BUCKET'S AMOUNT
                 
                 $this->save($virtualCard);
-                $createResult->setVirtualCardId($virtualCard->getId());
+                $createResult
+                    ->setVirtualCardId($virtualCard->getId())
+                    ->setProcessId($virtualCard->getProcessId())
+                    ->setExpireDate($virtualCard->getExpireDate())
+                ;
                 
                 return $createResult;
             } catch (Throwable $e) {

@@ -2,6 +2,8 @@
 
 namespace VirtualCard\Schema\VirtualCard\Create;
 
+use DateTimeInterface;
+
 class Result
 {
     /**
@@ -28,6 +30,16 @@ class Result
      * @var int|null
      */
     private $virtualCardId;
+    
+    /**
+     * @var DateTimeInterface|null
+     */
+    private $expireDate;
+    
+    /**
+     * @var string|null
+     */
+    private $processId;
     
     /**
      * @return string|null
@@ -120,6 +132,44 @@ class Result
     public function setVirtualCardId(?int $virtualCardId): Result
     {
         $this->virtualCardId = $virtualCardId;
+        
+        return $this;
+    }
+    
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getExpireDate(): ?DateTimeInterface
+    {
+        return $this->expireDate;
+    }
+    
+    /**
+     * @param DateTimeInterface|null $expireDate
+     * @return Result
+     */
+    public function setExpireDate(?DateTimeInterface $expireDate): Result
+    {
+        $this->expireDate = $expireDate;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getProcessId(): ?string
+    {
+        return $this->processId;
+    }
+    
+    /**
+     * @param string|null $processId
+     * @return Result
+     */
+    public function setProcessId(?string $processId): Result
+    {
+        $this->processId = $processId;
         
         return $this;
     }
