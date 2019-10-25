@@ -1,5 +1,7 @@
 framework:
     cache:
+        app: cache.adapter.redis
+        default_redis_provider: '%env(REDIS_SERVER)%'
         # Put the unique name of your app here: the prefix seed
         # is used to compute stable namespaces for cache keys.
         #prefix_seed: your_vendor_name/app_name

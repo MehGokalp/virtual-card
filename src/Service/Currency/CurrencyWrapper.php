@@ -4,18 +4,22 @@ namespace VirtualCard\Service\Currency;
 use Money\Converter;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
-use Money\Exception\UnknownCurrencyException;
 use Money\Exchange\FixedExchange;
 use Money\Exchange\ReversedCurrenciesExchange;
 use Money\Money;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use VirtualCard\Schema\Currency\Rate;
+use VirtualCard\Schema\Currency\Result as CurrencyResult;
+use VirtualCard\Traits\LoggerTrait;
 
 class CurrencyWrapper
 {
+    use LoggerTrait;
+    
     private const CACHE_KEY = 'sys.currency_rates';
-    private const CACHE_LIFETIME = '3600';
+    private const CACHE_LIFETIME = 3600;
     
     /**
      * @var CacheInterface
@@ -36,7 +40,7 @@ class CurrencyWrapper
         $this->cache = $cache;
     }
     
-    public function getCurrencyRates(): array
+    public function getCurrencyRates(): CurrencyResult
     {
         try {
             return $this->cache->get(self::CACHE_KEY, function (ItemInterface $item) {
@@ -45,7 +49,9 @@ class CurrencyWrapper
                 return $this->fetchCurrencyRates();
             });
         } catch (InvalidArgumentException $e) {
-            return [];
+            $this->logger->alert($e);
+            
+            return new CurrencyResult();
         }
     }
     
@@ -55,19 +61,15 @@ class CurrencyWrapper
             return $money;
         }
         
-        $rates = $this->getCurrencyRates();
-        
-        if (false === isset($rates[$to->getCode()])) {
-            throw new UnknownCurrencyException(sprintf('Currency (%s) is not in supported currencies %s', $to->getCode(), json_encode(array_keys($rates))));
-        }
-        
         return $this->getCurrencyConverter()->convert($money, $to);
     }
     
-    private function fetchCurrencyRates(): array
+    private function fetchCurrencyRates(): CurrencyResult
     {
-        // TODO fetch currencies from given url
-        return json_decode('{"USD":3.66,"EUR":3.87,"GBP":4.45,"TRY":1}', true);
+        return (new CurrencyResult())->setRates([
+            new Rate('EUR', 'USD', '1.1026'),
+            new Rate('EUR', 'TRY', '6.5359')
+        ]);
     }
     
     private function getCurrencyConverter(): Converter
@@ -76,11 +78,17 @@ class CurrencyWrapper
             return $this->currencyConverter;
         }
         
-        $rates = $this->getCurrencyRates();
+        $result = $this->getCurrencyRates();
         
-        $exchange = new ReversedCurrenciesExchange(new FixedExchange(array_map(static function ($rate) {
-            return ['TRY' => $rate];
-        }, $rates)));
+        $groups = [];
+        /**
+         * @var Rate $rate
+         */
+        foreach ($result->getRates() AS $rate) {
+            $groups[$rate->getFrom()][$rate->getTo()] = $rate->getRate();
+        }
+        
+        $exchange = new ReversedCurrenciesExchange(new FixedExchange($groups));
         
         return $this->currencyConverter = new Converter(new ISOCurrencies(), $exchange);
     }

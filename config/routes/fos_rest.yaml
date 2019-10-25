@@ -1,0 +1,6 @@
+virtual_card_create:
+    type: rest
+    resource: VirtualCard\Controller\VirtualCard\CreateController
+    prefix: /virtual-card
+    name_prefix: virtual_card_
+    defaults: { _format: json }

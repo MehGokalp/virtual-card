@@ -1,11 +1,13 @@
 # Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
 fos_rest:
     format_listener:
-        enabled: true
+        rules:
+            prefer_extension: false
+            fallback_format: json
+    routing_loader:
+        default_format: json
     serializer:
         serialize_null: true
     exception:
         enabled: true
         exception_controller: 'fos_rest.exception.controller:showAction'
-        codes:
-            'Symfony\Component\HttpKernel\Exception\NotFoundHttpException': 404

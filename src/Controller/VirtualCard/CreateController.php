@@ -24,7 +24,7 @@ class CreateController extends AbstractFOSRestController
     /**
      * Create virtual card with given parameters
      *
-     * @Annotations\Put("/virtual-card/add.{_format}")
+     * @Annotations\Put("/add")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -118,7 +118,7 @@ class CreateController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function index(Request $request, VirtualCardCreateWrapper $virtualCardWrapper, FormFactoryInterface $formFactory): Response
+    public function indexAction(Request $request, VirtualCardCreateWrapper $virtualCardWrapper, FormFactoryInterface $formFactory): Response
     {
         $form = $formFactory->create(VirtualCardType::class);
         
@@ -136,7 +136,7 @@ class CreateController extends AbstractFOSRestController
             } catch (Throwable $e) {
                 $this->logger->alert($e);
                 
-                throw new ServiceUnavailableHttpException();
+                throw new ServiceUnavailableHttpException(null, 'Service is currently unavailable please try again later.');
             }
         }
         
