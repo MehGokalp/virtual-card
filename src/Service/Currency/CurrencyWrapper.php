@@ -10,6 +10,7 @@ use Money\Money;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use VirtualCard\Exception\Currency\CurrenciesCanNotFetched;
 use VirtualCard\Schema\Currency\Rate;
 use VirtualCard\Schema\Currency\Result as CurrencyResult;
 use VirtualCard\Traits\LoggerTrait;
@@ -22,37 +23,28 @@ class CurrencyWrapper
     private const CACHE_LIFETIME = 3600;
     
     /**
-     * @var CacheInterface
-     */
-    private $cache;
-    
-    /**
      * @var Converter
      */
     private $currencyConverter;
     
     /**
+     * @var CurrencyHandler
+     */
+    private $handler;
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
+    
+    /**
      * CurrencyWrapper constructor.
+     * @param CurrencyHandler $currencyHandler
      * @param CacheInterface $cache
      */
-    public function __construct(CacheInterface $cache)
+    public function __construct(CurrencyHandler $currencyHandler, CacheInterface $cache)
     {
+        $this->handler = $currencyHandler;
         $this->cache = $cache;
-    }
-    
-    public function getCurrencyRates(): CurrencyResult
-    {
-        try {
-            return $this->cache->get(self::CACHE_KEY, function (ItemInterface $item) {
-                $item->expiresAfter(self::CACHE_LIFETIME);
-            
-                return $this->fetchCurrencyRates();
-            });
-        } catch (InvalidArgumentException $e) {
-            $this->logger->alert($e);
-            
-            return new CurrencyResult();
-        }
     }
     
     public function convert(Money $money, Currency $to): Money
@@ -64,12 +56,23 @@ class CurrencyWrapper
         return $this->getCurrencyConverter()->convert($money, $to);
     }
     
-    private function fetchCurrencyRates(): CurrencyResult
+    private function getCurrencyRates(): CurrencyResult
     {
-        return (new CurrencyResult())->setRates([
-            new Rate('EUR', 'USD', '1.1026'),
-            new Rate('EUR', 'TRY', '6.5359')
-        ]);
+        try {
+            return $this->cache->get(self::CACHE_KEY, function (ItemInterface $item) {
+                $item->expiresAfter(self::CACHE_LIFETIME);
+    
+                return $this->handler->handle();
+            });
+        } catch (CurrenciesCanNotFetched $e) {
+            $this->logger->alert($e);
+    
+            return new CurrencyResult();
+        } catch (InvalidArgumentException $e) {
+            $this->logger->alert($e);
+        
+            return new CurrencyResult();
+        }
     }
     
     private function getCurrencyConverter(): Converter

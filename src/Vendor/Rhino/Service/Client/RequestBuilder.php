@@ -1,11 +1,10 @@
 <?php
-namespace VirtualCard\Vendor\Rhino\Service;
+namespace VirtualCard\Vendor\Rhino\Service\Client;
 
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use VirtualCard\Entity\Vendor;
 use VirtualCard\Exception\Client\RouterMethodNotFoundException;
-use VirtualCard\Vendor\Rhino\Service\Client\Router;
 
 class RequestBuilder
 {
@@ -30,7 +29,7 @@ class RequestBuilder
         $headers = [
             'X-Method' => $method,
             'X-Process-Id' => $processId,
-            'X-Vendor' => Vendor::RHINO,
+            'X-Service' => Vendor::RHINO,
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',
             'Content-Type' => 'application/json'

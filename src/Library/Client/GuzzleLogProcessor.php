@@ -10,7 +10,7 @@ class GuzzleLogProcessor
     public const LOG_MESSAGE_TEMPLATE = '{target}'.self::DELIMITER
     .'{req_header_x-method}'.self::DELIMITER
     .'{req_header_x-process-id}'.self::DELIMITER
-    .'{req_header_x-vendor}'.self::DELIMITER
+    .'{req_header_x-service}'.self::DELIMITER
     .'{req_headers}'.self::DELIMITER
     .'{res_headers}'.self::DELIMITER
     .'{req_body}'.self::DELIMITER
@@ -27,7 +27,7 @@ class GuzzleLogProcessor
         $data = $this->parseMessage($record['message']);
         
         return [
-            'vendor' => $data['vendor'],
+            'service' => $data['service'],
             'process_id' => $data['process_id'],
             'method' => $data['method'],
             'date' => new MongoDate(),
@@ -50,8 +50,8 @@ class GuzzleLogProcessor
      */
     public function parseMessage($message): array
     {
-        [$target, $method, $process_id, $vendor, $req_headers, $res_headers, $request, $response, $code] = explode(self::DELIMITER, $message);
+        [$target, $method, $process_id, $service, $req_headers, $res_headers, $request, $response, $code] = explode(self::DELIMITER, $message);
         
-        return compact('target', 'method', 'process_id', 'vendor', 'req_headers', 'res_headers', 'request', 'response', 'code');
+        return compact('target', 'method', 'process_id', 'service', 'req_headers', 'res_headers', 'request', 'response', 'code');
     }
 }

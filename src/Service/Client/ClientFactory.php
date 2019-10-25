@@ -24,31 +24,25 @@ class ClientFactory
     private $mongoDatabaseName;
     
     /**
-     * @var string
-     */
-    private $mongoCollectionName;
-    
-    /**
      * MultiClient constructor.
-     * @param $mongo
+     * @param MongoClient $mongo
      * @param string $mongoDatabaseName
-     * @param string $mongoCollectionName
      */
-    public function __construct(MongoClient $mongo, string $mongoDatabaseName, string $mongoCollectionName)
+    public function __construct(MongoClient $mongo, string $mongoDatabaseName)
     {
         $this->mongo = $mongo;
         $this->mongoDatabaseName = $mongoDatabaseName;
-        $this->mongoCollectionName = $mongoCollectionName;
     }
     
     /**
      * @param array $options
+     * @param string $mongoCollectionName
      * @return GuzzleClient
      */
-    public function get(array $options = []): GuzzleClient
+    public function get(array $options = [], string $mongoCollectionName = 'logs'): GuzzleClient
     {
         $handlerStack = HandlerStack::create();
-        $logHandler = [new MongoDBHandler($this->mongo, $this->mongoDatabaseName, $this->mongoCollectionName)];
+        $logHandler = [new MongoDBHandler($this->mongo, $this->mongoDatabaseName, $mongoCollectionName)];
         
         $logger = new Logger(
             'client_logger',

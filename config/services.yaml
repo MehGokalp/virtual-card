@@ -20,6 +20,9 @@ services:
     VirtualCard\Vendor\:
         resource: '../src/Vendor/*/Service/*'
 
+    VirtualCard\CurrencyProvider\:
+        resource: '../src/CurrencyProvider/*/Service/*'
+
     VirtualCard\DataFixtures\:
         resource: '../src/DataFixtures/*'
 

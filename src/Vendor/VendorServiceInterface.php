@@ -1,4 +1,6 @@
 <?php
 namespace VirtualCard\Vendor;
 
-interface VendorServiceInterface {}
+use VirtualCard\Interfaces\ServiceInterface;
+
+interface VendorServiceInterface extends ServiceInterface{}

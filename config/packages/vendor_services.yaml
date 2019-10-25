@@ -19,4 +19,3 @@ services:
     VirtualCard\Service\Client\ClientFactory:
         arguments:
             $mongoDatabaseName: 'virtual_card'
-            $mongoCollectionName: 'logs'

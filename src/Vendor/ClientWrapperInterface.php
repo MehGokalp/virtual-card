@@ -1,6 +1,6 @@
 <?php
 
-namespace VirtualCard\Service\Client;
+namespace VirtualCard\Vendor;
 
 use Psr\Http\Message\ResponseInterface;
 

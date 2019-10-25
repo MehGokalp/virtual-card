@@ -19,7 +19,6 @@ class RequestOptionsResolver extends OptionsResolver
             'curl' => [
                 CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
             ],
-            'uri_parameters' => [],
             'headers' => []
         ];
         

@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    VirtualCard\CurrencyProvider\Mocky\Service\Rate:
+        tags:
+            [ 'app.currency.rate' ]
+
+    VirtualCard\Service\Currency\CurrencyHandler:
+        arguments:
+            - !tagged app.currency.rate
+
+    VirtualCard\CurrencyProvider\Mocky\Service\Client\RequestBuilder:
+        arguments:
+            - '%env(CURRENCY_PROVIDER_MOCKY_WS)%'

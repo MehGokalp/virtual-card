@@ -1,14 +1,13 @@
 <?php
 
-namespace VirtualCard\Vendor\Lion\Service\Client;
+namespace VirtualCard\CurrencyProvider\Mocky\Service\Client;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use VirtualCard\Exception\Client\RouterMethodNotFoundException;
+use VirtualCard\CurrencyProvider\ClientWrapperInterface;
 use VirtualCard\Library\Client\RequestOptionsResolver;
 use VirtualCard\Service\Client\AbstractClientWrapper;
 use VirtualCard\Service\Client\ClientFactory;
-use VirtualCard\Vendor\ClientWrapperInterface;
 
 class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterface
 {
@@ -24,20 +23,17 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
     }
     
     /**
-     * @param string $method
-     * @param string $processId
      * @param array $options
      * @return ResponseInterface
      *
-     * @throws RouterMethodNotFoundException
      * @throws GuzzleException
      */
-    public function request(string $method, string $processId, array $options = []): ResponseInterface
+    public function request(array $options = []): ResponseInterface
     {
         $optionsResolver = new RequestOptionsResolver();
         $options = $optionsResolver->resolve($options);
         
-        $request = $this->requestBuilder->build($method, $processId);
+        $request = $this->requestBuilder->build();
         
         return $this->send($request, $options);
     }

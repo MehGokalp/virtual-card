@@ -8,9 +8,9 @@ use VirtualCard\Exception\Client\RouterMethodNotFoundException;
 use VirtualCard\Library\Client\RequestOptionsResolver;
 use VirtualCard\Service\Client\AbstractClientWrapper;
 use VirtualCard\Service\Client\ClientFactory;
-use VirtualCard\Vendor\Bear\Service\RequestBuilder;
+use VirtualCard\Vendor\ClientWrapperInterface;
 
-class ClientWrapper extends AbstractClientWrapper
+class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterface
 {
     /**
      * @var RequestBuilder
