@@ -1,7 +1,10 @@
 vendor_config:
     bear:
         create: VirtualCard\Vendor\Bear\Service\Create
+        remove: VirtualCard\Vendor\Bear\Service\Remove
     lion:
         create: VirtualCard\Vendor\Lion\Service\Create
+        remove: VirtualCard\Vendor\Lion\Service\Remove
     rhino:
         create: VirtualCard\Vendor\Rhino\Service\Create
+        remove: VirtualCard\Vendor\Rhino\Service\Remove

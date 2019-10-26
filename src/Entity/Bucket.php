@@ -70,6 +70,11 @@ class Bucket
      */
     private $parent;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Bucket")
+     */
+    private $base;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +160,18 @@ class Bucket
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getBase(): ?self
+    {
+        return $this->base;
+    }
+
+    public function setBase(?self $base): self
+    {
+        $this->base = $base;
 
         return $this;
     }

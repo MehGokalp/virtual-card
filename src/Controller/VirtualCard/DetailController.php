@@ -13,7 +13,7 @@ class DetailController extends AbstractFOSRestController
     /**
      * Get detail of the virtual card
      *
-     * @Annotations\Get("/virtual-card/detail/{id}", requirements={"id": "^(\d+)$"})
+     * @Annotations\Get("/detail/{id}", requirements={"id": "^(\d+)$"})
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -55,7 +55,7 @@ class DetailController extends AbstractFOSRestController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function indexAction(Request $request): Response
     {
     
     }

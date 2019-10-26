@@ -5,7 +5,7 @@ namespace VirtualCard\CurrencyProvider\Mocky\Parser;
 use VirtualCard\Schema\Currency\Rate;
 use VirtualCard\Schema\Currency\Result;
 
-class ResponseParser
+class CurrencyResponseParser
 {
     public static function parse(string $response): Result
     {

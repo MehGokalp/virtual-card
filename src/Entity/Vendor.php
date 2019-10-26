@@ -46,18 +46,12 @@ class Vendor
     private $bucketDateDelta;
 
     /**
-     * @ORM\OneToMany(targetEntity="VirtualCard\Entity\VirtualCard", mappedBy="vendor", orphanRemoval=true)
-     */
-    private $virtualCards;
-
-    /**
      * @ORM\OneToMany(targetEntity="VirtualCard\Entity\Bucket", mappedBy="vendor", orphanRemoval=true)
      */
     private $buckets;
 
     public function __construct()
     {
-        $this->virtualCards = new ArrayCollection();
         $this->buckets = new ArrayCollection();
     }
 
@@ -101,38 +95,7 @@ class Vendor
 
         return $this;
     }
-
-    /**
-     * @return Collection|VirtualCard[]
-     */
-    public function getVirtualCards(): Collection
-    {
-        return $this->virtualCards;
-    }
-
-    public function addVirtualCard(VirtualCard $virtualCard): self
-    {
-        if (!$this->virtualCards->contains($virtualCard)) {
-            $this->virtualCards[] = $virtualCard;
-            $virtualCard->setVendor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVirtualCard(VirtualCard $virtualCard): self
-    {
-        if ($this->virtualCards->contains($virtualCard)) {
-            $this->virtualCards->removeElement($virtualCard);
-            // set the owning side to null (unless already changed)
-            if ($virtualCard->getVendor() === $this) {
-                $virtualCard->setVendor(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Bucket[]
      */

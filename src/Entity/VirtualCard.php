@@ -4,6 +4,7 @@ namespace VirtualCard\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="virtual_card")
  * @ORM\Entity(repositoryClass="VirtualCard\Repository\VirtualCardRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class VirtualCard
 {
@@ -41,14 +43,6 @@ class VirtualCard
     private $currency;
 
     /**
-     * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Vendor", inversedBy="virtualCards")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @Assert\NotBlank(groups={"insertion"})
-     */
-    private $vendor;
-
-    /**
      * @ORM\Column(type="date")
      *
      * @Assert\NotBlank()
@@ -77,7 +71,7 @@ class VirtualCard
     private $processId;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      *
      * @Assert\NotBlank(groups={"insertion"})
      */
@@ -96,6 +90,12 @@ class VirtualCard
      * @Assert\NotBlank(groups={"insertion"})
      */
     private $cvc;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="VirtualCard\Entity\Bucket")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $baseBucket;
 
     public function getId(): ?int
     {
@@ -122,18 +122,6 @@ class VirtualCard
     public function setCurrency(?Currency $currency): self
     {
         $this->currency = $currency;
-
-        return $this;
-    }
-
-    public function getVendor(): ?Vendor
-    {
-        return $this->vendor;
-    }
-
-    public function setVendor(?Vendor $vendor): self
-    {
-        $this->vendor = $vendor;
 
         return $this;
     }
@@ -218,6 +206,18 @@ class VirtualCard
     public function setCvc(string $cvc): self
     {
         $this->cvc = $cvc;
+
+        return $this;
+    }
+
+    public function getBaseBucket(): ?Bucket
+    {
+        return $this->baseBucket;
+    }
+
+    public function setBaseBucket(?Bucket $baseBucket): self
+    {
+        $this->baseBucket = $baseBucket;
 
         return $this;
     }

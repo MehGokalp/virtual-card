@@ -4,13 +4,14 @@ namespace VirtualCard\Service\VirtualCard\Create;
 use Money\Currency;
 use Money\Money;
 use Throwable;
+use VirtualCard\Entity\Bucket;
 use VirtualCard\Entity\Currency as CurrencyEntity;
-use VirtualCard\Entity\Vendor;
 use VirtualCard\Entity\VirtualCard;
 use VirtualCard\Exception\VirtualCard\NoMatchingBucketException;
 use VirtualCard\Library\Helper\VirtualCardHelper;
 use VirtualCard\Repository\BucketRepository;
 use VirtualCard\Schema\VirtualCard\Create\Result as CreateResult;
+use VirtualCard\Service\Bucket\SpendBucketWrapper;
 use VirtualCard\Service\Currency\CurrencyWrapper;
 use VirtualCard\Traits\EntityManagerAware;
 use VirtualCard\Traits\LoggerTrait;
@@ -22,7 +23,7 @@ class VirtualCardCreateWrapper
     ;
     
     /**
-     * @var VirtualCardCreateHandler
+     * @var VirtualCardRemoveHandler
      */
     private $virtualCardCreateHandler;
     
@@ -35,18 +36,24 @@ class VirtualCardCreateWrapper
      * @var CurrencyWrapper
      */
     private $currencyWrapper;
+    /**
+     * @var SpendBucketWrapper
+     */
+    private $spendBucketWrapper;
     
     /**
      * VirtualCardWrapper constructor.
-     * @param VirtualCardCreateHandler $virtualCardCreateHandler
+     * @param VirtualCardRemoveHandler $virtualCardCreateHandler
      * @param BucketRepository $bucketRepository
      * @param CurrencyWrapper $currencyWrapper
+     * @param SpendBucketWrapper $spendBucketWrapper
      */
-    public function __construct(VirtualCardCreateHandler $virtualCardCreateHandler, BucketRepository $bucketRepository, CurrencyWrapper $currencyWrapper)
+    public function __construct(VirtualCardRemoveHandler $virtualCardCreateHandler, BucketRepository $bucketRepository, CurrencyWrapper $currencyWrapper, SpendBucketWrapper $spendBucketWrapper)
     {
         $this->bucketRepository = $bucketRepository;
         $this->currencyWrapper = $currencyWrapper;
         $this->virtualCardCreateHandler = $virtualCardCreateHandler;
+        $this->spendBucketWrapper = $spendBucketWrapper;
     }
     
     /**
@@ -62,14 +69,15 @@ class VirtualCardCreateWrapper
         
         foreach ($buckets AS $bucket) {
             try {
-                /**
-                 * @var Vendor $vendor
-                 */
-                $vendor = $bucket->getVendor();
-                $createResult = $this->virtualCardCreateHandler->handle($virtualCard, $vendor);
+                if ($this->spendBucketWrapper->canSpend($bucket, $balance) === false) {
+                    // Can this bucket spend this balance
+                    continue;
+                }
                 
-                $this->buildVirtualCard($virtualCard, $vendor, $createResult);
-                //TODO REDUCE BUCKET'S AMOUNT
+                $createResult = $this->virtualCardCreateHandler->handle($virtualCard, $bucket->getVendor());
+                
+                $this->buildVirtualCard($virtualCard, $bucket, $createResult);
+                $this->spendBucketWrapper->spend($bucket, $balance);
                 
                 $this->save($virtualCard);
                 $createResult
@@ -100,10 +108,12 @@ class VirtualCardCreateWrapper
         return $balance;
     }
     
-    protected function buildVirtualCard(VirtualCard $virtualCard, Vendor $vendor, CreateResult $createResult): void
+    protected function buildVirtualCard(VirtualCard $virtualCard, Bucket $bucket, CreateResult $createResult): void
     {
+        $baseBucket = $bucket->getBase();
+        
         $virtualCard
-            ->setVendor($vendor)
+            ->setBaseBucket($baseBucket ?? $bucket)
             ->setCardNumber($createResult->getCardNumber())
             ->setCvc($createResult->getCvc())
             ->setReference($createResult->getReference())
@@ -112,7 +122,7 @@ class VirtualCardCreateWrapper
     
     protected function save(VirtualCard $virtualCard): void
     {
-        $this->em->persist($virtualCard);
-        $this->em->flush();
+        $this->entityManager->persist($virtualCard);
+        $this->entityManager->flush();
     }
 }

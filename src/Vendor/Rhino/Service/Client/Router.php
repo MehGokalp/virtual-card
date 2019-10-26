@@ -10,11 +10,17 @@ class Router
     /**
      * @var string
      */
-    private $webServiceUrl;
+    private $createWebServiceUrl;
     
-    public function __construct(string $webServiceUrl)
+    /**
+     * @var string
+     */
+    private $removeWebServiceUrl;
+    
+    public function __construct(string $createWebServiceUrl, string $removeWebServiceUrl)
     {
-        $this->webServiceUrl = $webServiceUrl;
+        $this->createWebServiceUrl = $createWebServiceUrl;
+        $this->removeWebServiceUrl = $removeWebServiceUrl;
     }
     
     /**
@@ -25,7 +31,11 @@ class Router
     public function getRoute(string $method): array
     {
         if ($method === VendorServiceLoader::CREATE) {
-            return [ 'GET', $this->webServiceUrl ];
+            return [ 'GET', $this->createWebServiceUrl ];
+        }
+        
+        if ($method === VendorServiceLoader::REMOVE) {
+            return [ 'GET', $this->removeWebServiceUrl ];
         }
         
         throw new RouterMethodNotFoundException($method);

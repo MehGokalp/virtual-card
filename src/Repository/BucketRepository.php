@@ -5,6 +5,7 @@ namespace VirtualCard\Repository;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 use VirtualCard\Entity\Bucket;
 
 /**
@@ -42,6 +43,27 @@ class BucketRepository extends ServiceEntityRepository
             ->orderBy('b.balance', 'DESC')
             ->getQuery()
             ->getResult()
+        ;
+    }
+    
+    /**
+     * @param Bucket $base
+     * @return Bucket
+     * @throws NonUniqueResultException
+     */
+    public function getLatestState(Bucket $base): Bucket
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b')
+            ->addSelect('v')
+            ->addSelect('c')
+            ->join('b.vendor', 'v')
+            ->join('b.currency', 'c')
+            ->andWhere('b.base = :base AND b.expired = 0')
+            ->setParameter('base', $base)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
 }

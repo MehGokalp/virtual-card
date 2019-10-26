@@ -8,23 +8,23 @@ trait EntityManagerAware
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
     
     /**
      * @return EntityManagerInterface
      */
     public function getEntityManager(): EntityManagerInterface
     {
-        return $this->em;
+        return $this->entityManager;
     }
     
     /**
      * @required
      *
-     * @param EntityManagerInterface $em
+     * @param EntityManagerInterface $entityManager
      */
-    public function setEntityManager(EntityManagerInterface $em): void
+    public function setEntityManager(EntityManagerInterface $entityManager): void
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
     }
 }

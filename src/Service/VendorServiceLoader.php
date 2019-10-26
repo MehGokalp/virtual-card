@@ -9,6 +9,7 @@ use VirtualCard\Vendor\VendorServiceInterface;
 class VendorServiceLoader
 {
     public const CREATE = 'create';
+    public const REMOVE = 'remove';
     
     /**
      * @var ContainerInterface

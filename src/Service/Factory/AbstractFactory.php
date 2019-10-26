@@ -10,11 +10,11 @@ abstract class AbstractFactory
     
     public function persist($object): void
     {
-        $this->em->persist($object);
+        $this->entityManager->persist($object);
     }
     
     public function flush(): void
     {
-        $this->em->flush();
+        $this->entityManager->flush();
     }
 }

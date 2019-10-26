@@ -6,15 +6,18 @@ services:
 
     VirtualCard\Vendor\Bear\Service\Client\Router:
         arguments:
-            $webServiceUrl: '%env(VENDOR_BEAR_WS)%'
+            $createWebServiceUrl: '%env(VENDOR_BEAR_CREATE_WS)%'
+            $removeWebServiceUrl: '%env(VENDOR_BEAR_REMOVE_WS)%'
 
     VirtualCard\Vendor\Lion\Service\Client\Router:
         arguments:
-            $webServiceUrl: '%env(VENDOR_LION_WS)%'
+            $createWebServiceUrl: '%env(VENDOR_LION_CREATE_WS)%'
+            $removeWebServiceUrl: '%env(VENDOR_LION_REMOVE_WS)%'
 
     VirtualCard\Vendor\Rhino\Service\Client\Router:
         arguments:
-            $webServiceUrl: '%env(VENDOR_RHINO_WS)%'
+            $createWebServiceUrl: '%env(VENDOR_RHINO_CREATE_WS)%'
+            $removeWebServiceUrl: '%env(VENDOR_RHINO_REMOVE_WS)%'
 
     VirtualCard\Service\Client\ClientFactory:
         arguments:

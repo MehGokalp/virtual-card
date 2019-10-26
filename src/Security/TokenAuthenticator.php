@@ -1,7 +1,6 @@
 <?php
 namespace VirtualCard\Security;
 
-use VirtualCard\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +9,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use VirtualCard\Entity\User;
 use VirtualCard\Traits\EntityManagerAware;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
@@ -49,7 +49,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         }
         
         // if a User object, checkCredentials() is called
-        return $this->em->getRepository(User::class)
+        return $this->entityManager->getRepository(User::class)
             ->findOneBy([ 'apiToken' => $apiToken ])
         ;
     }

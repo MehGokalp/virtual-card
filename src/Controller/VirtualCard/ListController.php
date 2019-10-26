@@ -13,7 +13,7 @@ class ListController extends AbstractFOSRestController
     /**
      * List virtual cards with given filters
      *
-     * @Annotations\Get("/virtual-card/list")
+     * @Annotations\Get("/list")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -105,7 +105,7 @@ class ListController extends AbstractFOSRestController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function indexAction(Request $request): Response
     {
     
     }
