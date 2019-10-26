@@ -4,12 +4,22 @@ namespace VirtualCard\Controller\VirtualCard;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations;
+use Knp\Component\Pager\PaginatorInterface;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
+use Throwable;
+use VirtualCard\Form\ListVirtualCardType;
+use VirtualCard\Repository\VirtualCardRepository;
+use VirtualCard\Traits\LoggerTrait;
 
 class ListController extends AbstractFOSRestController
 {
+    use LoggerTrait;
+    
     /**
      * List virtual cards with given filters
      *
@@ -103,10 +113,33 @@ class ListController extends AbstractFOSRestController
      * )
      *
      * @param Request $request
+     * @param FormFactoryInterface $formFactory
+     * @param VirtualCardRepository $virtualCardRepository
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(Request $request, FormFactoryInterface $formFactory, VirtualCardRepository $virtualCardRepository, PaginatorInterface $paginator): Response
     {
+        $form = $formFactory->create(ListVirtualCardType::class);
     
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() === true && $form->isValid() === true) {
+            try {
+                $cardsQuery = $virtualCardRepository->list($form->getData());
+    
+                $cards = $paginator->paginate($cardsQuery, abs($request->query->getInt('page', 1)), abs($request->query->getInt('limit', 10)));
+            
+                $view = $this->view($cards, 200);
+            
+                return $this->handleView($view);
+            } catch (Throwable $e) {
+                $this->logger->alert($e);
+            
+                throw new ServiceUnavailableHttpException(null, 'Service is currently unavailable please try again later.');
+            }
+        }
+    
+        throw new BadRequestHttpException('Your data that you sent is not valid.');
     }
 }

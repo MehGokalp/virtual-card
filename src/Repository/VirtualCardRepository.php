@@ -2,10 +2,14 @@
 
 namespace VirtualCard\Repository;
 
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query;
+use VirtualCard\Entity\Currency;
+use VirtualCard\Entity\Vendor;
 use VirtualCard\Entity\VirtualCard;
 
 /**
@@ -40,6 +44,46 @@ class VirtualCardRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+    
+    public function list(array $parameters): Query
+    {
+        $qb =$this->createQueryBuilder('v')
+            ->select('v')
+            ->addSelect('c')
+            ->join('v.currency', 'c')
+            ->join('v.baseBucket', 'bb')
+        ;
+        
+        if ($parameters['currency'] instanceof Currency) {
+            $qb
+                ->andWhere('v.currency = :currency')
+                ->setParameter('currency', $parameters['currency'])
+            ;
+        }
+        
+        if ($parameters['vendor'] instanceof Vendor) {
+            $qb
+                ->andWhere('bb.vendor = :vendor')
+                ->setParameter('vendor', $parameters['vendor'])
+            ;
+        }
+        
+        if ($parameters['activationDateFrom'] instanceof DateTimeInterface) {
+            $qb
+                ->andWhere('v.activationDate >= :activationFrom')
+                ->setParameter('activationFrom', $parameters['activationDateFrom']->format('Y-m-d'))
+            ;
+        }
+        
+        if ($parameters['activationDateTo'] instanceof DateTimeInterface) {
+            $qb
+                ->andWhere('v.activationDate <= :activationTo')
+                ->setParameter('activationTo', $parameters['activationDateTo']->format('Y-m-d'))
+            ;
+        }
+        
+        return $qb->getQuery();
     }
     
     /**
