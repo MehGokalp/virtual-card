@@ -29,67 +29,25 @@ class CreateController extends AbstractFOSRestController
      * @SWG\Tag(name="Virtual Card API")
      *
      * @SWG\Parameter(
-     *     name="processId",
-     *     description="Process id of creation",
+     *     name="body",
      *     in="body",
-     *     type="string",
+     *     description="JSON Payload",
      *     required=true,
-     *     @SWG\Schema(type="string")
-     * )
-     *
-     * @SWG\Parameter(
-     *     name="activationDate",
-     *     description="Virtual card's activation date",
-     *     in="body",
-     *     type="string",
-     *     required=true,
-     *     format="YYYY-mm-dd",
-     *     @SWG\Schema(type="string")
-     * )
-     *
-     * @SWG\Parameter(
-     *     name="expireDate",
-     *     description="Virtual card's expiration date",
-     *     in="body",
-     *     type="string",
-     *     required=true,
-     *     format="YYYY-mm-dd",
-     *     @SWG\Schema(type="string")
-     * )
-     *
-     * @SWG\Parameter(
-     *     name="balance",
-     *     description="Virtual card's requested balance. Amount must be send in penny",
-     *     in="body",
-     *     type="integer",
-     *     required=true,
-     *     @SWG\Schema(type="integer")
-     * )
-     *
-     * @SWG\Parameter(
-     *     name="currency",
-     *     description="Currency of virtual card",
-     *     in="body",
-     *     type="string",
-     *     required=true,
-     *     maxLength=4,
-     *     pattern="^(USD|EUR)$",
-     *     @SWG\Schema(type="string")
-     * )
-     *
-     * @SWG\Parameter(
-     *     name="notes",
-     *     description="Extra notes to virtual card",
-     *     in="body",
-     *     type="string",
-     *     required=false,
-     *     maxLength=2048,
-     *     @SWG\Schema(type="string")
+     *     format="application/json",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="processId", type="string", description="Process id of creation"),
+     *         @SWG\Property(property="activationDate", type="string", description="Virtual card's activation date", example="2020-12-11", format="YYYY-mm-dd"),
+     *         @SWG\Property(property="expireDate", type="string", description="Virtual card's expiration date", example="2020-12-11", format="YYYY-mm-dd"),
+     *         @SWG\Property(property="balance", type="integer"),
+     *         @SWG\Property(property="currency", type="string", example="EUR", description="Currency of virtual card", pattern="^(USD|EUR)$"),
+     *         @SWG\Property(property="notes", type="string", description="Extra notes to virtual card", maxLength=2048)
+     *     )
      * )
      *
      * @SWG\Response(
      *     response="200",
-     *     description="Virtual card created successfuly",
+     *     description="Operation succeeded",
      *     @SWG\Schema(
      *          type="object",
      *          properties={
@@ -103,8 +61,30 @@ class CreateController extends AbstractFOSRestController
      * )
      *
      * @SWG\Response(
-     *     response="500",
-     *     description="A problem(s) occurred while creating virtual card",
+     *     response="400",
+     *     description="The data that you send is not valid",
+     *     @SWG\Schema(
+     *          type="object",
+     *          properties={
+     *              @SWG\Property(property="message", type="string")
+     *          }
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response="406",
+     *     description="There is no matching bucket to create this virtual card",
+     *     @SWG\Schema(
+     *          type="object",
+     *          properties={
+     *              @SWG\Property(property="message", type="string")
+     *          }
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response="503",
+     *     description="A problem(s) occurred",
      *     @SWG\Schema(
      *          type="object",
      *          properties={

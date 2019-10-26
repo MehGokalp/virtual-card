@@ -26,14 +26,15 @@ class JsonRequestBodyEventSubscriber implements EventSubscriberInterface
         }
         
         $request = $event->getRequest();
+    
+        if ($request->getMethod() === Request::METHOD_GET) {
+            return;
+        }
+        
         $contentTypeHeader = $request->headers->get('Content-Type');
         
         if (strpos($contentTypeHeader, 'application/json') === false) {
             throw new BadRequestHttpException(sprintf('Unsupported accept type: %s', $contentTypeHeader));
-        }
-        
-        if ($request->getMethod() === Request::METHOD_GET) {
-            return;
         }
         
         $requestBody = $request->getContent();

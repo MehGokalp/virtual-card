@@ -27,32 +27,57 @@ class DetailController extends AbstractFOSRestController
      * @SWG\Tag(name="Virtual Card API")
      *
      * @SWG\Parameter(
-     *     name="id",
-     *     description="Virtual card's id",
-     *     in="path",
-     *     type="string",
+     *     name="body",
+     *     in="body",
+     *     description="JSON Payload",
      *     required=true,
-     *     @SWG\Schema(type="string")
+     *     format="application/json",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="reference", type="string", description="Given reference of virtual card"),
+     *     )
      * )
      *
      * @SWG\Response(
      *     response="200",
-     *     description="Virtual card created successfuly",
+     *     description="Operation succeeded",
      *     @SWG\Schema(
      *          type="object",
      *          properties={
-     *              @SWG\Property(property="processId", type="string"),
-     *              @SWG\Property(property="reference", type="string"),
-     *              @SWG\Property(property="cardNumber", type="string", maxLength=16),
-     *              @SWG\Property(property="cvc", type="string", maxLength=4),
-     *              @SWG\Property(property="expireDate", type="string", format="YYYY-mm-dd")
+     *              @SWG\Property(property="balance", type="integer", description="In penny unit"),
+     *              @SWG\Property(property="currency", type="string", description="Creation currency of virtual card"),
+     *              @SWG\Property(property="activationDate", type="string", format="YYYY-mm-dd"),
+     *              @SWG\Property(property="expireDate", type="string", format="YYYY-mm-dd"),
+     *              @SWG\Property(property="cardNumber", type="string", maxLength=16, description="Card number")
      *          }
      *      )
      * )
      *
      * @SWG\Response(
-     *     response="500",
-     *     description="A problem(s) occurred while creating virtual card",
+     *     response="400",
+     *     description="The data that you send is not valid",
+     *     @SWG\Schema(
+     *          type="object",
+     *          properties={
+     *              @SWG\Property(property="message", type="string")
+     *          }
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response="404",
+     *     description="There is no matching virtual card with given reference",
+     *     @SWG\Schema(
+     *          type="object",
+     *          properties={
+     *              @SWG\Property(property="message", type="string")
+     *          }
+     *     )
+     * )
+     *
+     * @SWG\Response(
+     *     response="503",
+     *     description="A problem(s) occurred",
      *     @SWG\Schema(
      *          type="object",
      *          properties={
