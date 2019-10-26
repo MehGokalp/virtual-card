@@ -3,6 +3,7 @@
 namespace VirtualCard\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -29,6 +30,10 @@ class JsonRequestBodyEventSubscriber implements EventSubscriberInterface
         
         if (strpos($contentTypeHeader, 'application/json') === false) {
             throw new BadRequestHttpException(sprintf('Unsupported accept type: %s', $contentTypeHeader));
+        }
+        
+        if ($request->getMethod() === Request::METHOD_GET) {
+            return;
         }
         
         $requestBody = $request->getContent();
