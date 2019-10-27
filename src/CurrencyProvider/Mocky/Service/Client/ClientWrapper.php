@@ -35,6 +35,6 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
         
         $request = $this->requestBuilder->build();
         
-        return $this->send($request, $options);
+        return $this->send($request, $options, 'currency_provider_logs');
     }
 }

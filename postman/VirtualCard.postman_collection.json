@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "2d2b6cd0-a1d3-4b12-a2c1-0fda77b27f74",
+		"name": "Virtual Card",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"processId\": \"XYZABC\",\n\t\"activationDate\": \"2020-01-01\",\n\t\"expireDate\": \"2020-01-14\",\n\t\"balance\": 5000,\n\t\"currency\": \"EUR\",\n\t\"notes\": \"\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/virtual-card/add.json",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"virtual-card",
+						"add.json"
+					]
+				},
+				"description": "Add new virtual card"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"reference\": \"THATISAREFSTRING5DB43A9A54C711.03591347\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{serviceUrl}}/virtual-card/remove.json",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"virtual-card",
+						"remove.json"
+					]
+				},
+				"description": "Remove virtual card"
+			},
+			"response": []
+		},
+		{
+			"name": "Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{serviceUrl}}/virtual-card/detail.json?reference=THATISVENDR2REFCODE5DB43AB42A1618.81779700",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"virtual-card",
+						"detail.json"
+					],
+					"query": [
+						{
+							"key": "reference",
+							"value": "THATISVENDR2REFCODE5DB43AB42A1618.81779700"
+						}
+					]
+				},
+				"description": "Remove virtual card"
+			},
+			"response": []
+		},
+		{
+			"name": "List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{serviceUrl}}/virtual-card/list.json?currency=EUR&page=1&limit=10",
+					"host": [
+						"{{serviceUrl}}"
+					],
+					"path": [
+						"virtual-card",
+						"list.json"
+					],
+					"query": [
+						{
+							"key": "currency",
+							"value": "EUR"
+						},
+						{
+							"key": "vendor",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "activationDateFrom",
+							"value": "2020-01-01",
+							"disabled": true
+						},
+						{
+							"key": "activationDateTo",
+							"value": "2020-01-14",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Remove virtual card"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apiToken}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-AUTH-TOKEN",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "01a91687-8c4b-4014-adb4-1461a03831d0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "91b03a3e-7697-499d-8a0a-778f74b2eeb6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
