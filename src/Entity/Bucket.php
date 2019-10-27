@@ -140,7 +140,7 @@ class Bucket
         return $this;
     }
 
-    public function getExpired(): ?bool
+    public function isExpired(): ?bool
     {
         return $this->expired;
     }
