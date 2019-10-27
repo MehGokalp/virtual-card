@@ -43,7 +43,6 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
         
         $vendorResult = $service->getResult($virtualCard);
         
-        
         $errors = $this->validator->validate($vendorResult);
         
         if (count($errors) > 0) {

@@ -32,7 +32,7 @@ class CollectBucketWrapperTest extends TestCase
         
         $mock
             ->method('save')
-            ->willReturnSelf()
+                ->willReturnSelf()
         ;
     
         $this->mock = $mock;

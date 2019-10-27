@@ -26,13 +26,13 @@ class SpendBucketWrapperTest extends TestCase
         $mock = $mockBuilder->getMock();
         $mock
             ->method('persist')
-            ->with($this->isInstanceOf(Bucket::class))
-            ->willReturnSelf()
+                ->with($this->isInstanceOf(Bucket::class))
+                ->willReturnSelf()
         ;
         
         $mock
             ->method('save')
-            ->willReturnSelf()
+                ->willReturnSelf()
         ;
         
         $this->mock = $mock;
