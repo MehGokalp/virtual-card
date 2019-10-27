@@ -26,7 +26,7 @@ class Result
      * @Assert\NotBlank()
      * @Assert\Length(max="3", min="3")
      */
-    private $cvv;
+    private $cvc;
     
     /**
      * @return string|null
@@ -69,18 +69,18 @@ class Result
     /**
      * @return string|null
      */
-    public function getCvv(): ?string
+    public function getCvc(): ?string
     {
-        return $this->cvv;
+        return $this->cvc;
     }
     
     /**
-     * @param string|null $cvv
+     * @param string|null $cvc
      * @return Result
      */
-    public function setCvv(?string $cvv): Result
+    public function setCvc(?string $cvc): Result
     {
-        $this->cvv = $cvv;
+        $this->cvc = $cvc;
         
         return $this;
     }

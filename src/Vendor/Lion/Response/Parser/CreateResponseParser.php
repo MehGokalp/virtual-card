@@ -11,7 +11,7 @@ class CreateResponseParser
         
         return (new Result())
             ->setReference($parsedResponse['referenceCode'] ?? null)
-            ->setCvv($parsedResponse['cvc'] ?? null)
+            ->setCvc($parsedResponse['cvc'] ?? null)
             ->setCardNumber($parsedResponse['cardNumber'] ?? null)
         ;
     }

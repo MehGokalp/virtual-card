@@ -58,7 +58,7 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
         
         return (new CreateResult())
             ->setCardNumber($vendorResult->getCardNumber())
-            ->setCvc($vendorResult->getCvv())
+            ->setCvc($vendorResult->getCvc())
             ->setReference($vendorResult->getReference())
             ->setVendor($vendorSlug)
         ;
