@@ -12,7 +12,6 @@ use VirtualCard\Library\Client\GuzzleLogProcessor;
 
 class ClientFactory
 {
-    
     /**
      * @var MongoClient
      */

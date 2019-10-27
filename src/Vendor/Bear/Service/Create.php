@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Vendor\Bear\Service;
 
 use GuzzleHttp\Exception\GuzzleException;

@@ -31,6 +31,7 @@ class CurrencyWrapper
      * @var CurrencyHandler
      */
     private $handler;
+    
     /**
      * @var CacheInterface
      */

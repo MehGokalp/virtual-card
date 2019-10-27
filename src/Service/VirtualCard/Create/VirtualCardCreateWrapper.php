@@ -23,7 +23,7 @@ class VirtualCardCreateWrapper
     ;
     
     /**
-     * @var VirtualCardRemoveHandler
+     * @var VirtualCardCreateHandler
      */
     private $virtualCardCreateHandler;
     
@@ -36,6 +36,7 @@ class VirtualCardCreateWrapper
      * @var CurrencyWrapper
      */
     private $currencyWrapper;
+    
     /**
      * @var SpendBucketWrapper
      */
@@ -43,12 +44,12 @@ class VirtualCardCreateWrapper
     
     /**
      * VirtualCardWrapper constructor.
-     * @param VirtualCardRemoveHandler $virtualCardCreateHandler
+     * @param VirtualCardCreateHandler $virtualCardCreateHandler
      * @param BucketRepository $bucketRepository
      * @param CurrencyWrapper $currencyWrapper
      * @param SpendBucketWrapper $spendBucketWrapper
      */
-    public function __construct(VirtualCardRemoveHandler $virtualCardCreateHandler, BucketRepository $bucketRepository, CurrencyWrapper $currencyWrapper, SpendBucketWrapper $spendBucketWrapper)
+    public function __construct(VirtualCardCreateHandler $virtualCardCreateHandler, BucketRepository $bucketRepository, CurrencyWrapper $currencyWrapper, SpendBucketWrapper $spendBucketWrapper)
     {
         $this->bucketRepository = $bucketRepository;
         $this->currencyWrapper = $currencyWrapper;
