@@ -26,16 +26,16 @@ class RouterTest extends TestCase
     {
         [ $httpMethod, $url ] = $this->router->getRoute(VendorServiceLoader::CREATE);
         
-        $this->assertEquals('GET', $httpMethod);
-        $this->assertEquals(self::CREATE_MOCK_SERVICE_URL, $url);
+        $this->assertSame('GET', $httpMethod);
+        $this->assertSame(self::CREATE_MOCK_SERVICE_URL, $url);
     }
     
     public function testRemoveMethodRoute(): void
     {
         [ $httpMethod, $url ] = $this->router->getRoute(VendorServiceLoader::REMOVE);
         
-        $this->assertEquals('GET', $httpMethod);
-        $this->assertEquals(self::REMOVE_MOCK_SERVICE_URL, $url);
+        $this->assertSame('GET', $httpMethod);
+        $this->assertSame(self::REMOVE_MOCK_SERVICE_URL, $url);
     }
     
     public function testRouteNotFound(): void

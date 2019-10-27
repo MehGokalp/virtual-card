@@ -28,28 +28,28 @@ class RequestBuilderTest extends TestCase
     {
         $request = $this->builder->build(VendorServiceLoader::CREATE, 'testprocess');
         
-        $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals(self::CREATE_MOCK_SERVICE_URL, $request->getUri()->__toString());
-        $this->assertEquals('testprocess', $request->getHeaderLine('X-Process-Id'));
-        $this->assertEquals(VendorServiceLoader::CREATE, $request->getHeaderLine('X-Method'));
-        $this->assertEquals(Vendor::RHINO, $request->getHeaderLine('X-Service'));
-        $this->assertEquals('gzip', $request->getHeaderLine('Accept-Encoding'));
-        $this->assertEquals('application/json', $request->getHeaderLine('Accept'));
-        $this->assertEquals('application/json', $request->getHeaderLine('Content-Type'));
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame(self::CREATE_MOCK_SERVICE_URL, $request->getUri()->__toString());
+        $this->assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
+        $this->assertSame(VendorServiceLoader::CREATE, $request->getHeaderLine('X-Method'));
+        $this->assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
+        $this->assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
+        $this->assertSame('application/json', $request->getHeaderLine('Accept'));
+        $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
     }
     
     public function testRemoveRequest(): void
     {
         $request = $this->builder->build(VendorServiceLoader::REMOVE, 'testprocess');
         
-        $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals(self::REMOVE_MOCK_SERVICE_URL, $request->getUri()->__toString());
-        $this->assertEquals('testprocess', $request->getHeaderLine('X-Process-Id'));
-        $this->assertEquals(VendorServiceLoader::REMOVE, $request->getHeaderLine('X-Method'));
-        $this->assertEquals(Vendor::RHINO, $request->getHeaderLine('X-Service'));
-        $this->assertEquals('gzip', $request->getHeaderLine('Accept-Encoding'));
-        $this->assertEquals('application/json', $request->getHeaderLine('Accept'));
-        $this->assertEquals('application/json', $request->getHeaderLine('Content-Type'));
+        $this->assertSame('GET', $request->getMethod());
+        $this->assertSame(self::REMOVE_MOCK_SERVICE_URL, $request->getUri()->__toString());
+        $this->assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
+        $this->assertSame(VendorServiceLoader::REMOVE, $request->getHeaderLine('X-Method'));
+        $this->assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
+        $this->assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
+        $this->assertSame('application/json', $request->getHeaderLine('Accept'));
+        $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
     }
     
     public function testRouteNotFound(): void

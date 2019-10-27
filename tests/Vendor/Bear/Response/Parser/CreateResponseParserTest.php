@@ -14,9 +14,9 @@ class CreateResponseParserTest extends TestCase
         
         $result = CreateResponseParser::parse($response);
         
-        $this->assertEquals('THISISAMOCKEDREFCODE', $result->getReference());
-        $this->assertEquals('4342558146566662', $result->getCardNumber());
-        $this->assertEquals('347', $result->getCvc());
+        $this->assertSame('THISISAMOCKEDREFCODE', $result->getReference());
+        $this->assertSame('4342558146566662', $result->getCardNumber());
+        $this->assertSame('347', $result->getCvc());
     }
     
     public function testInvalid(): void

@@ -23,14 +23,14 @@ class CurrencyResponseParserTest extends TestCase
          * @var Rate $second
          */
         $first = $rates[0];
-        $this->assertEquals('EUR', $first->getFrom());
-        $this->assertEquals('USD', $first->getTo());
-        $this->assertEquals(1.1026, $first->getRate());
+        $this->assertSame('EUR', $first->getFrom());
+        $this->assertSame('USD', $first->getTo());
+        $this->assertSame(1.1026, $first->getRate());
         
         $second = $rates[1];
-        $this->assertEquals('EUR', $second->getFrom());
-        $this->assertEquals('TRY', $second->getTo());
-        $this->assertEquals(6.5359, $second->getRate());
+        $this->assertSame('EUR', $second->getFrom());
+        $this->assertSame('TRY', $second->getTo());
+        $this->assertSame(6.5359, $second->getRate());
     }
     
     public function testInvalid(): void

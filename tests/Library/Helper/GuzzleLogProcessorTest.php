@@ -55,11 +55,11 @@ Via: 1.1 vegur<DELIMITER><DELIMITER>{
         
         $data = call_user_func($this->processor, $record);
         
-        $this->assertEquals('bear', $data['service']);
-        $this->assertEquals('XYZABC', $data['process_id']);
-        $this->assertEquals('create', $data['method']);
+        $this->assertSame('bear', $data['service']);
+        $this->assertSame('XYZABC', $data['process_id']);
+        $this->assertSame('create', $data['method']);
         $this->assertInstanceOf(\MongoDate::class, $data['date']);
-        $this->assertEquals('GET /v2/5db20549350000a414f54e71 HTTP/1.1
+        $this->assertSame('GET /v2/5db20549350000a414f54e71 HTTP/1.1
 User-Agent: GuzzleHttp/6.3.3 curl/7.54.0 PHP/7.2.1
 Host: www.mocky.io
 X-Method: create
@@ -68,22 +68,22 @@ X-Service: bear
 Accept-Encoding: gzip
 Accept: application/json
 Content-Type: application/json', $data['request_header']);
-        $this->assertEquals('', $data['request']);
-        $this->assertEquals('HTTP/1.1 200 OK
+        $this->assertSame('', $data['request']);
+        $this->assertSame('HTTP/1.1 200 OK
 Server: Cowboy
 Connection: keep-alive
 Date: Sun, 27 Oct 2019 11:38:36 GMT
 Content-Type: application/json
 Content-Length: 93
 Via: 1.1 vegur', $data['response_header']);
-        $this->assertEquals('{
+        $this->assertSame('{
     "refString": "THISISAMOCKEDREFCODE",
     "cardNo": "4342558146566662",
     "cvv": 347
 }', $data['response']);
-        $this->assertEquals('200', $data['code']);
-        $this->assertEquals(200, $data['level']);
-        $this->assertEquals('INFO', $data['level_name']);
-        $this->assertEquals('client_logger', $data['channel']);
+        $this->assertSame('200', $data['code']);
+        $this->assertSame(200, $data['level']);
+        $this->assertSame('INFO', $data['level_name']);
+        $this->assertSame('client_logger', $data['channel']);
     }
 }

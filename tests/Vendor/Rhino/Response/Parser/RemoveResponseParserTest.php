@@ -14,7 +14,7 @@ class RemoveResponseParserTest extends TestCase
         
         $result = RemoveResponseParser::parse($response);
         
-        $this->assertEquals(1, $result->getStatus());
+        $this->assertSame(1, $result->getStatus());
     }
     
     public function testInvalid(): void
