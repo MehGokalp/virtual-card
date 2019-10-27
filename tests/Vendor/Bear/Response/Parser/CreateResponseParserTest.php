@@ -2,9 +2,29 @@
 
 namespace VirtualCard\Tests\Vendor\Bear\Response\Parser;
 
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use VirtualCard\Vendor\Bear\Response\Parser\CreateResponseParser;
 
 class CreateResponseParserTest extends TestCase
 {
+    public function testValid(): void
+    {
+        $response = '{"refString": "THISISAMOCKEDREFCODE","cardNo": "4342558146566662","cvv": 347}';
+        
+        $result = CreateResponseParser::parse($response);
+        
+        $this->assertEquals('THISISAMOCKEDREFCODE', $result->getReference());
+        $this->assertEquals('4342558146566662', $result->getCardNumber());
+        $this->assertEquals('347', $result->getCvv());
+    }
     
+    public function testInvalid(): void
+    {
+        $response = '{someinvalidresponse},,';
+        
+        $this->expectException(InvalidArgumentException::class);
+    
+        CreateResponseParser::parse($response);
+    }
 }
