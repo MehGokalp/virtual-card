@@ -1,9 +1,6 @@
 doctrine:
     dbal:
-        # configure these for your database server
-        # use postgresql for PostgreSQL
-        # use sqlite for SQLite
-        driver: 'mysql'
+        driver: 'pdo_mysql'
         server_version: '5.7'
 
         # only needed for MySQL
@@ -18,7 +15,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            App:
+            VirtualCard:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Entity'

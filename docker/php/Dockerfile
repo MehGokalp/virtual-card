@@ -8,7 +8,7 @@ zlib1g-dev
 RUN pecl install mongodb
 RUN docker-php-ext-enable mongodb
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql
 RUN pecl install apcu
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu
@@ -22,10 +22,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 WORKDIR /usr/src/app
 
 COPY apps/main /usr/src/app
+COPY docker/php/.env.local /usr/src/app/.env.local
 
 RUN composer install
-RUN bin/console doctrine:database:create --env=dev
-RUN bin/console doctrine:migrations:migrate --env=dev
-RUN bin/console doctrine:fixtures:load --env=dev
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
