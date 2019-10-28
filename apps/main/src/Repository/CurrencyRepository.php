@@ -2,9 +2,9 @@
 
 namespace VirtualCard\Repository;
 
-use VirtualCard\Entity\Currency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use VirtualCard\Entity\Currency;
 
 /**
  * @method Currency|null find($id, $lockMode = null, $lockVersion = null)

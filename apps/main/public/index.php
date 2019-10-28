@@ -1,8 +1,8 @@
 <?php
 
-use VirtualCard\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
+use VirtualCard\Kernel;
 
 require dirname(__DIR__).'/config/bootstrap.php';
 
