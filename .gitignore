@@ -1,21 +1,24 @@
 
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/public/bundles/
-/var/
-/vendor/
+apps/main/.env.local
+apps/main/.env.local.php
+apps/main/.env.*.local
+apps/main/public/bundles/
+apps/main/var/
+apps/main/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
+apps/main/.phpunit
+apps/main/.phpunit.result.cache
+apps/main/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/web-server-bundle ###
-/.web-server-pid
+apps/main/.web-server-pid
 ###< symfony/web-server-bundle ###
 
 .idea
+
+.env
+docker-compose.override.yml
