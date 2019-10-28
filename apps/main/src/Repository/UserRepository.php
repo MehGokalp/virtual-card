@@ -2,9 +2,9 @@
 
 namespace VirtualCard\Repository;
 
-use VirtualCard\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use VirtualCard\Entity\User;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)

@@ -1,0 +1,1 @@
+We'll put another micro service into thus folders. 'main' folder is our main php application
