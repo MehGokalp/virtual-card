@@ -28,10 +28,13 @@ bucketDateDelta|Vendor's buckets are creating with fixed date delta. Date delta 
 When a virtual card creation requested and the vendor (that we sent a create request) rejects or returns exception, we try to create this virtual card with another available vendor.
 Example:
 
-|Vendor's Name|Returned status| Description |
+|Vendor's Name|Returned status|
 |--|--|--|
-|Lion|503 (Service unavailable)|It means we couldn't create the virtual card try another vendor|
-|Bear|200 (Success)|We created the virtual card|
+|Lion|503 (Service unavailable)|
+|Bear|200 (Success)|
+
+First we sent a request to first vendor (Lion) it returned 503 and we assume that it couldn't create the virtual card. After then we sent another request to our second vendor Bear (this is fallback) and it returns 200 then we end the flow.
+If the second vendor returns reject response, we were going to send another request to our third vendor.
 
 ## Virtual Card
 Virtual card is the main item of this project. We're trying to create a single virtual card using buckets and vendors.
