@@ -16,10 +16,12 @@ The properties of a single bucket are;
 ## Vendor
 
 Vendors are our providers. We can think them like banks. When user wants to create a virtual card we're sending a request to vendor. If the vendor accepts the creation of the virtual card then we create the virtual card.
-Column|Description|
--- | -- 
+
+|Column|Description|
+|--|-- 
 bucketLimit|Vendor's buckets are creating with fixed balance. This field stores the fixed balances|
 bucketDateDelta|Vendor's buckets are creating with fixed date delta. Date delta means the day count between start and end date.|
+
 
 **Exceptions**
 When a virtual card creation requested and the vendor (that we sent a create request) rejects or returns exception, we try to create this virtual card with another available vendor.
