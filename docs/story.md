@@ -29,7 +29,7 @@ When a virtual card creation requested and the vendor (that we sent a create req
 Example:
 
 |Vendor's Name|Returned status|
-|--|--|--|
+|--|--|
 |Lion|503 (Service unavailable)|
 |Bear|200 (Success)|
 
