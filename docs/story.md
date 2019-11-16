@@ -35,17 +35,8 @@ Example:
 ## Virtual Card
 Virtual card is the main item of this project. We're trying to create a single virtual card using buckets and vendors.
 The basic flow to create a virtual card:
-```mermaid
-graph LR
-Begin(User Request) --> FindBucket[Find a bucket]
-FindBucket --> BucketFound{Found}
-BucketFound -- Yes --> RequestVendor[Request bucket's vendor]
-BucketFound -- No --> ReturnNoBucketAvailable(Return no bucket available response)
-RequestVendor --> IfSuccess{Succeed}
-IfSuccess -- No --> FindBucket
-IfSuccess -- Yes --> ReduceBucketBalance[Reduce bucket's balance]
-ReduceBucketBalance --> End(Return success response)
-```
+
+![Flow](https://raw.githubusercontent.com/MehGokalp/virtual-card/master/docs/flow.png)
 
 When an user request to create virtual card, the requested balance will substract from chosed bucket. (Read below to know how we're choosing the buckets).
 
