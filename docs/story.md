@@ -24,6 +24,7 @@ bucketDateDelta|Vendor's buckets are creating with fixed date delta. Date delta 
 
 
 **Exceptions**
+
 When a virtual card creation requested and the vendor (that we sent a create request) rejects or returns exception, we try to create this virtual card with another available vendor.
 Example:
 
@@ -41,6 +42,7 @@ The basic flow to create a virtual card:
 When an user request to create virtual card, the requested balance will substract from chosed bucket. (Read below to know how we're choosing the buckets).
 
 **Bucket choosing**
+
 When user requests to create virtual card, we try to find single bucket to create this virtual card. Conditions are;
 
  - Start date **must** before then virtual card's
