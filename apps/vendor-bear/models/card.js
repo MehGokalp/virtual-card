@@ -20,6 +20,8 @@ const CardSchema = new Schema({
     reference: { type: String },
     cardNumber: { type: String },
     cvc: { type: String },
+}, {
+    collection: 'card'
 });
 
 /**
