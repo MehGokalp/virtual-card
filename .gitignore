@@ -24,3 +24,4 @@ apps/main/.web-server-pid
 docker-compose.override.yml
 
 apps/vendor-bear/node_modules
+apps/vendor-bear/.env
