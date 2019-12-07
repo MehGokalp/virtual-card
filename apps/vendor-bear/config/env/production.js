@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-  db: process.env.MONGODB_URL
+    db: process.env.MONGODB_URL
 };

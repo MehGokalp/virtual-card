@@ -15,7 +15,7 @@ const Schema = mongoose.Schema;
 const CardSchema = new Schema({
     balance: { type: Number, default: 0 },
     currency: { type: String, default: 'TRY' },
-    activationDate: { type: Date},
+    activationDate: { type: Date },
     expireDate: { type: Date },
     reference: { type: String },
     cardNumber: { type: String },
