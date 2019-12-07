@@ -20,7 +20,7 @@ const CardSchema = new Schema({
     reference: { type: String },
     cardNumber: { type: String },
     cvc: { type: String },
-    active: { type: Boolean }
+    active: { type: Boolean, default: true }
 }, {
     collection: 'card'
 });
@@ -45,6 +45,10 @@ CardSchema.path('cardNumber').validate(cardNumber => {
 });
 
 CardSchema.path('cvc').validate(cvc => {
+    //TODO: Implement this method
+});
+
+CardSchema.path('reference').validate(reference => {
     //TODO: Implement this method
 });
 

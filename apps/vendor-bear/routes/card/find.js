@@ -1,24 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const debug = require('debug')('card-api');
-
-// Remove thus
-const mongoose = require('mongoose');
-const cardSchema = mongoose.model('Card');
+const debug = require('debug')('card-api:find');
+const cardRepository = require('../../repository/card');
 
 router.get('/:reference', function (req, res) {
     return (new Promise((resolve, reject) => {
-        cardSchema.findOne({ reference: req.params.reference }).exec((err, card) => {
-            if (err) {
-                throw err;
-            }
+        let card = cardRepository.find({ reference: req.params.reference });
 
-            if (!card) {
-                return reject();
-            }
+        if (!card) {
+            return reject();
+        }
 
-            return resolve(card);
-        });
+        return  resolve(card);
     })).then(card => {
         if (card.isActive() === false) {
             return res.status(200).json({

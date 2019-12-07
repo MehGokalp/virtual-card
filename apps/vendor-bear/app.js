@@ -7,9 +7,6 @@ const pkg = require('./package.json');
 
 const env = process.env.NODE_ENV || 'development';
 
-const indexRouter = require('./routes/index');
-const cardRouter = require('./routes/card');
-
 const app = express();
 
 // view engine setup
@@ -29,8 +26,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', indexRouter);
-app.use('/card', cardRouter);
+app.use('/', require('./routes/index'));
+app.use('/card', require('./routes/card/create'));
+app.use('/card', require('./routes/card/find'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
