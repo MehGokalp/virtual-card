@@ -20,7 +20,8 @@ const CardSchema = new Schema({
     reference: { type: String },
     cardNumber: { type: String },
     cvc: { type: String },
-    active: { type: Boolean, default: true }
+    active: { type: Boolean, default: true },
+    isDeleted: { type: Boolean, default: false },
 }, {
     collection: 'card'
 });
