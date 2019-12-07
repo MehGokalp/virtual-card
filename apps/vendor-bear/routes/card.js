@@ -19,10 +19,11 @@ router.get('/:reference', function (req, res, next) {
         });
     })).then(card => {
         if (card.isActive() === false) {
-            res.status(200).json({
+            return res.status(200).json({
                 'message': 'Card is not activated yet'
             });
         }
+
         return res.status(200).json({
             currency: card.currency,
             balance: card.balance,
@@ -39,7 +40,7 @@ router.get('/:reference', function (req, res, next) {
         })
     }).catch(err => {
         debug(err);
-        res.status(503).json({
+        return res.status(503).json({
             'message': 'An error occurred while fetching card from database'
         })
     })

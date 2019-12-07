@@ -20,6 +20,7 @@ const CardSchema = new Schema({
     reference: { type: String },
     cardNumber: { type: String },
     cvc: { type: String },
+    active: { type: Boolean }
 }, {
     collection: 'card'
 });
@@ -27,32 +28,32 @@ const CardSchema = new Schema({
 /**
  * Schema validations
  */
-CardSchema.path('currency').validate((currency) => {
+CardSchema.path('currency').validate(currency => {
     //TODO: Implement this method
 });
 
-CardSchema.path('activationDate').validate((activationDate) => {
+CardSchema.path('activationDate').validate(activationDate => {
     //TODO: Implement this method
 });
 
-CardSchema.path('expireDate').validate((cvc) => {
+CardSchema.path('expireDate').validate(expireDate => {
     //TODO: Implement this method
 });
 
-CardSchema.path('cardNumber').validate((cardNumber) => {
+CardSchema.path('cardNumber').validate(cardNumber => {
     //TODO: Implement this method
 });
 
-CardSchema.path('cvc').validate((cvc) => {
+CardSchema.path('cvc').validate(cvc => {
     //TODO: Implement this method
 });
 
 CardSchema.methods = {
-    isExpired: () => {
-        //TODO: Implement this method
+    isExpired: function() {
+        return this.expireDate < new Date();
     },
-    isActive: () => {
-        //TODO: Implement this method
+    isActive: function() {
+        return this.active === true;
     },
     canSpend: (amount) => {
         //TODO: Implement this method

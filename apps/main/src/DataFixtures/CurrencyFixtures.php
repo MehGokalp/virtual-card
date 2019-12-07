@@ -5,6 +5,7 @@ namespace VirtualCard\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use VirtualCard\Entity\Currency;
+use VirtualCard\Exception\ValidationException;
 use VirtualCard\Service\Currency\CurrencyFactory;
 
 class CurrencyFixtures extends Fixture
@@ -25,7 +26,7 @@ class CurrencyFixtures extends Fixture
     
     /**
      * @param ObjectManager $manager
-     * @throws \ValidationException
+     * @throws ValidationException
      */
     public function load(ObjectManager $manager)
     {
