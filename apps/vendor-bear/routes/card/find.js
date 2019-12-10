@@ -4,9 +4,9 @@ const debug = require('debug')('card-api:find');
 const cardRepository = require('../../repository/card');
 
 router.get('/:reference', function (req, res) {
-    return (new Promise((resolve, reject) => {
-        let card = cardRepository.find({ reference: req.params.reference });
-
+    return (new Promise(async (resolve, reject) => {
+        let card = await cardRepository.find({ reference: req.params.reference });
+    
         if (!card) {
             return reject();
         }

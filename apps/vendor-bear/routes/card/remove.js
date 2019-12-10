@@ -11,7 +11,7 @@ router.delete('/remove/:reference', function (req, res) {
             return reject();
         }
 
-        return  resolve(card);
+        return resolve(card);
     })).then(card => {
         if (card.isActive() === false) {
             return res.status(200).json({

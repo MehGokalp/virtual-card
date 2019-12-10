@@ -6,7 +6,7 @@ function connect(callback) {
         .on('error', console.log)
         .on('disconnected', connect)
         .once('open', callback);
-    return mongoose.connect(config.db, { keepAlive: 1, useNewUrlParser: true });
+    return mongoose.connect(config.db, { useUnifiedTopology: true, keepAlive: 1, useNewUrlParser: true });
 }
 
 module.exports = connect;
