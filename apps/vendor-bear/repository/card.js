@@ -1,5 +1,4 @@
 const cardSchema = require('mongoose').model('Card');
-const cardService = require('../service/card');
 
 const create = async (data) => {
     let card = new cardSchema(data);

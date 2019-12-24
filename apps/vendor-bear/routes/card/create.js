@@ -41,6 +41,13 @@ router.post('/create', function (req, res) {
         })
     }).catch(err => {
         debug(err);
+
+        if (err.name === 'ValidationError') {
+            return res.status(400).json({
+                'message': err.message
+            })
+        }
+
         return res.status(503).json({
             'message': 'An error occurred. Please try again later.'
         })
