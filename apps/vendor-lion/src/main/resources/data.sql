@@ -1,0 +1,1 @@
+INSERT INTO currency VALUES (1, "TRY"), (2, "USD"), (3, "EUR"), (4, "GBP");
