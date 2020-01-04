@@ -3,11 +3,7 @@
 /**
  * Module dependencies.
  */
-const loader = require('../loader');
-loader('models');
-loader('validators');
-require('dotenv').config();
-
+require('../kernel');
 const app = require('../app');
 const debug = require('debug')('vendor-bear:server');
 const http = require('http');
