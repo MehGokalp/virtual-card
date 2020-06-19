@@ -1,0 +1,3 @@
+default_controller:
+    resource: "../src/Controller/DefaultController.php"
+    type: annotation
