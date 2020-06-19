@@ -1,4 +1,6 @@
 {
+    "name": "mehgokalp/virtual-card",
+    "description": "Manage virtual cards with using a bucket system",
     "type": "project",
     "license": "proprietary",
     "require": {

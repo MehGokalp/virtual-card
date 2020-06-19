@@ -5,7 +5,7 @@ language: php
 services:
     - mongodb
     - mysql
-    - redis-server
+    - redis
 
 # Travis can cache content between builds. This speeds up the build process and saves resources.
 cache:
@@ -25,7 +25,6 @@ env:
         # the same directory as the simple-phpunit if it is not provided. It's also possible to set
         # this env var in the phpunit.xml.dist file.
         - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
-        - SYMFONY_DEPRECATIONS_HELPER=9
         - ACTION="install"
         # Add the Symfony binary's path to PATH.
         - PATH="$HOME/.symfony/bin:$PATH"
@@ -69,12 +68,10 @@ script:
     - ./bin/console lint:twig templates --env=prod
     # This checks that the XLIFF translations contain no syntax errors.
     - ./bin/console lint:xliff translations
-    # This checks that arguments injected into services match type declarations.
-    - ./bin/console lint:container
     # This checks that the application doesn't use dependencies with known security vulnerabilities.
     - symfony check:security
     # This checks that Doctrine's mapping configurations are valid.
     - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
     # Fail CI if the repo is in a dirty state after building assets (only for current release ie install).
     #-  if [[ "$ACTION" == "install" ]]; then yarn install && yarn encore production && git add --all && git diff --staged --exit-code; fi
-    - composer validate --strict
+    - composer validate
