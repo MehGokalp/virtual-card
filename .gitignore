@@ -21,4 +21,5 @@ phpunit.xml
 .idea
 
 .env
+docker/.env
 docker-compose.override.yml

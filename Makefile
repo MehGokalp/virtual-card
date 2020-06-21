@@ -1,5 +1,6 @@
-build: docker-compose.yml
+build: docker/docker-compose.yml
 	@echo 'Building the container'
+	cd docker && \
 	docker-compose build --force-rm --no-cache && \
 	docker-compose up -d && \
 	sleep 3 && \
