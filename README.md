@@ -20,7 +20,7 @@ Clone this project into your computer, make sure your docker daemon is running t
 and it'll build and up the necessary containers for you then the server will started on your 8080 port at localhost.
 
 ## .env
-I prepared every system configuration in docker-compose.yml but if you want to change something on your own, you can edit .env file that is in base folder.
+The docker's environment parameters must be in ``docker`` folder. The .env file in base directory is contains application's configurations. 
 
 ## Technical Stack
 
