@@ -59,7 +59,7 @@ install:
 script:
     # There's no need to load data fixtures before running tests because the project
     # repository already includes a test database with all the fixtures needed to run the tests.
-    - ./bin/phpunit
+    - ./bin/phpunit --coverage-clover=coverage.xml
     # This checks that the source code follows the Symfony Code Syntax rules.
     - '[[ $TRAVIS_PHP_VERSION != "7.4" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
     # This checks that the YAML config files contain no syntax errors.
@@ -75,3 +75,6 @@ script:
     # Fail CI if the repo is in a dirty state after building assets (only for current release ie install).
     #-  if [[ "$ACTION" == "install" ]]; then yarn install && yarn encore production && git add --all && git diff --staged --exit-code; fi
     - composer validate
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
