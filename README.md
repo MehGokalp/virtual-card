@@ -30,7 +30,7 @@ I prepared every system configuration in docker-compose.yml but if you want to c
  - Nginx
 
 ## Access to databases
-You can use [adminer](https://github.com/vrana/adminer) to access MongoDB and mysql. Adminer is available at 8180 port on your local host.
+You can use [adminer](https://github.com/vrana/adminer) to access MongoDB and mysql. Adminer will be available at 8180 port on your local host.
 
 ## API Documentation
 You can access API's documentation at [/doc](http://localhost:8080/doc) path. We used nelmio-api-doc bundle to create documentation. It means you can test every method on project using this documentation.
