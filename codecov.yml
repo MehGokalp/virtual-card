@@ -1,5 +1,0 @@
-codecov:
-    ci:
-        - "travis.org"
-fixes:
-    - "/home/travis/::"

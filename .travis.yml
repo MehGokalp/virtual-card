@@ -41,7 +41,6 @@ jobs:
         - php: 7.2
 
 before_install:
-    - phpenv config-rm xdebug.ini || true
     # Change minimum-stability to allow upcoming versions (dev | alpha | beta | RC)
     - '[[ -z $STABILITY ]] || composer config minimum-stability "$STABILITY"'
     # Change extra.symfony.require used by symfony flex
