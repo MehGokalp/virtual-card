@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/MehGokalp/virtual-card.svg?branch=master)](https://travis-ci.org/MehGokalp/virtual-card) [![codecov](https://codecov.io/gh/MehGokalp/virtual-card/branch/master/graph/badge.svg)](https://codecov.io/gh/MehGokalp/virtual-card)
+[![Build Status](https://travis-ci.com/MehGokalp/virtual-card.svg?branch=master)](https://travis-ci.com/MehGokalp/virtual-card) [![codecov](https://codecov.io/gh/MehGokalp/virtual-card/branch/master/graph/badge.svg)](https://codecov.io/gh/MehGokalp/virtual-card)
 
 # Welcome to VirtualCard API
 This API allows you to create, remove, list inner virtual cards using dummy web service API's with micro service architecture. In version 1.0 we just have a single php project based on symfony framework. 
