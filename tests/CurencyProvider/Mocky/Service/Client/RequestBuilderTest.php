@@ -23,9 +23,9 @@ class RequestBuilderTest extends TestCase
     {
         $request = $this->builder->build();
         
-        $this->assertSame('GET', $request->getMethod());
-        $this->assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
-        $this->assertSame('application/json', $request->getHeaderLine('Accept'));
-        $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+        self::assertSame('GET', $request->getMethod());
+        self::assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
+        self::assertSame('application/json', $request->getHeaderLine('Accept'));
+        self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
     }
 }

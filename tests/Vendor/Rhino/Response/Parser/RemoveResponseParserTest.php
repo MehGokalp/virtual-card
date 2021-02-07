@@ -11,18 +11,18 @@ class RemoveResponseParserTest extends TestCase
     public function testValid(): void
     {
         $response = '{"removed": 1}';
-        
+
         $result = RemoveResponseParser::parse($response);
-        
-        $this->assertSame(1, $result->getStatus());
+
+        self::assertSame(1, $result->getStatus());
     }
-    
+
     public function testInvalid(): void
     {
         $response = '{someinvalidresponse},,';
-        
+
         $this->expectException(InvalidArgumentException::class);
-        
+
         RemoveResponseParser::parse($response);
     }
 }

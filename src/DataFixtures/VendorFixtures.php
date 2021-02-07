@@ -3,31 +3,21 @@
 namespace VirtualCard\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use VirtualCard\Entity\Vendor;
 use VirtualCard\Exception\ValidationException;
 use VirtualCard\Service\Vendor\VendorFactory;
 
 class VendorFixtures extends Fixture
 {
-    /**
-     * @var VendorFactory
-     */
+    /** @var VendorFactory */
     private $vendorFactory;
 
-    /**
-     * VendorFixtures constructor.
-     * @param VendorFactory $vendorFactory
-     */
     public function __construct(VendorFactory $vendorFactory)
     {
         $this->vendorFactory = $vendorFactory;
     }
 
-    /**
-     * @param ObjectManager $manager
-     * @throws ValidationException
-     */
     public function load(ObjectManager $manager)
     {
         $vendors = [

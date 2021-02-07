@@ -11,20 +11,20 @@ class CreateResponseParserTest extends TestCase
     public function testValid(): void
     {
         $response = '{"number": "4506252234022455","securityCode": 290,"refCode": "THATISAREFSTRING"}';
-        
+
         $result = CreateResponseParser::parse($response);
-        
-        $this->assertSame('THATISAREFSTRING', $result->getReference());
-        $this->assertSame('4506252234022455', $result->getCardNumber());
-        $this->assertSame('290', $result->getCvc());
+
+        self::assertSame('THATISAREFSTRING', $result->getReference());
+        self::assertSame('4506252234022455', $result->getCardNumber());
+        self::assertSame('290', $result->getCvc());
     }
-    
+
     public function testInvalid(): void
     {
         $response = '{someinvalidresponse},,';
-        
+
         $this->expectException(InvalidArgumentException::class);
-        
+
         CreateResponseParser::parse($response);
     }
 }

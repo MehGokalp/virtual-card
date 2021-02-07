@@ -3,30 +3,20 @@
 namespace VirtualCard\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use VirtualCard\Entity\Currency;
 use VirtualCard\Service\Currency\CurrencyFactory;
 
 class CurrencyFixtures extends Fixture
 {
-    /**
-     * @var CurrencyFactory
-     */
+    /** @var CurrencyFactory */
     private $currencyFactory;
 
-    /**
-     * CurrencyFixtures constructor.
-     * @param CurrencyFactory $currencyFactory
-     */
     public function __construct(CurrencyFactory $currencyFactory)
     {
         $this->currencyFactory = $currencyFactory;
     }
 
-    /**
-     * @param ObjectManager $manager
-     * @throws \ValidationException
-     */
     public function load(ObjectManager $manager)
     {
         foreach ([Currency::USD, Currency::EUR] as $code) {

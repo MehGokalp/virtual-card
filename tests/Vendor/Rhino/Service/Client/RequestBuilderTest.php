@@ -13,49 +13,49 @@ class RequestBuilderTest extends TestCase
 {
     private const CREATE_MOCK_SERVICE_URL = 'https://www.mockrhinocreate.io/';
     private const REMOVE_MOCK_SERVICE_URL = 'https://www.mockrhinoremove.io/';
-    
+
     /**
      * @var RequestBuilder
      */
     private $builder;
-    
-    protected function setUp()
-    {
-        $this->builder = new RequestBuilder(new Router(self::CREATE_MOCK_SERVICE_URL, self::REMOVE_MOCK_SERVICE_URL));
-    }
-    
+
     public function testCreateRequest(): void
     {
         $request = $this->builder->build(VendorServiceLoader::CREATE, 'testprocess');
-        
-        $this->assertSame('GET', $request->getMethod());
-        $this->assertSame(self::CREATE_MOCK_SERVICE_URL, $request->getUri()->__toString());
-        $this->assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
-        $this->assertSame(VendorServiceLoader::CREATE, $request->getHeaderLine('X-Method'));
-        $this->assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
-        $this->assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
-        $this->assertSame('application/json', $request->getHeaderLine('Accept'));
-        $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+
+        self::assertSame('GET', $request->getMethod());
+        self::assertSame(self::CREATE_MOCK_SERVICE_URL, $request->getUri()->__toString());
+        self::assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
+        self::assertSame(VendorServiceLoader::CREATE, $request->getHeaderLine('X-Method'));
+        self::assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
+        self::assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
+        self::assertSame('application/json', $request->getHeaderLine('Accept'));
+        self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
     }
-    
+
     public function testRemoveRequest(): void
     {
         $request = $this->builder->build(VendorServiceLoader::REMOVE, 'testprocess');
-        
-        $this->assertSame('GET', $request->getMethod());
-        $this->assertSame(self::REMOVE_MOCK_SERVICE_URL, $request->getUri()->__toString());
-        $this->assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
-        $this->assertSame(VendorServiceLoader::REMOVE, $request->getHeaderLine('X-Method'));
-        $this->assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
-        $this->assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
-        $this->assertSame('application/json', $request->getHeaderLine('Accept'));
-        $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
+
+        self::assertSame('GET', $request->getMethod());
+        self::assertSame(self::REMOVE_MOCK_SERVICE_URL, $request->getUri()->__toString());
+        self::assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
+        self::assertSame(VendorServiceLoader::REMOVE, $request->getHeaderLine('X-Method'));
+        self::assertSame(Vendor::RHINO, $request->getHeaderLine('X-Service'));
+        self::assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
+        self::assertSame('application/json', $request->getHeaderLine('Accept'));
+        self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
     }
-    
+
     public function testRouteNotFound(): void
     {
         $this->expectException(RouterMethodNotFoundException::class);
-        
+
         $this->builder->build('someinvalidroute', 'testprocess');
+    }
+
+    protected function setUp()
+    {
+        $this->builder = new RequestBuilder(new Router(self::CREATE_MOCK_SERVICE_URL, self::REMOVE_MOCK_SERVICE_URL));
     }
 }

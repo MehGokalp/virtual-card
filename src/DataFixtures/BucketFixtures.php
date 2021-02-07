@@ -5,17 +5,14 @@ namespace VirtualCard\DataFixtures;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use VirtualCard\Entity\Currency;
 use VirtualCard\Entity\Vendor;
-use VirtualCard\Exception\ValidationException;
 use VirtualCard\Service\Bucket\BucketFactory;
 
 class BucketFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @var BucketFactory
-     */
+    /** @var BucketFactory */
     private $bucketFactory;
 
     public function __construct(BucketFactory $bucketFactory)
@@ -23,41 +20,36 @@ class BucketFixtures extends Fixture implements DependentFixtureInterface
         $this->bucketFactory = $bucketFactory;
     }
 
-    /**
-     * @param ObjectManager $manager
-     *
-     * @throws ValidationException
-     * @throws \Exception
-     */
     public function load(ObjectManager $manager)
     {
         $buckets = [
             Vendor::BEAR => [
-                ['2020-01-01', Currency::USD],
-                ['2020-02-01', Currency::USD],
-                ['2020-03-03', Currency::USD],
+                [(new DateTime())->modify('+1 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+2 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+3 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+3 month')->format('Y-m-d'), Currency::EUR],
             ],
             Vendor::LION => [
-                ['2020-01-01', Currency::USD],
-                ['2020-01-15', Currency::USD],
-                ['2020-01-29', Currency::USD],
+                [(new DateTime())->modify('+2 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+3 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+4 month')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+2 month')->format('Y-m-d'), Currency::EUR],
+                [(new DateTime())->modify('+3 month')->format('Y-m-d'), Currency::EUR],
+                [(new DateTime())->modify('+4 month')->format('Y-m-d'), Currency::EUR],
             ],
             Vendor::RHINO => [
-                ['2020-01-01', Currency::USD],
-                ['2020-01-21', Currency::USD],
+                [(new DateTime())->modify('+15 days')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+45 days')->format('Y-m-d'), Currency::USD],
+                [(new DateTime())->modify('+45 days')->format('Y-m-d'), Currency::EUR],
             ],
         ];
 
         foreach ($buckets as $vendor => $bucketList) {
-            /**
-             * @var Vendor $vendor
-             */
+            /** @var Vendor $vendor */
             $vendor = $this->getReference(sprintf('vendor_%s', $vendor));
 
             foreach ($bucketList as $bucket) {
-                /**
-                 * @var Currency $currency
-                 */
+                /** @var Currency $currency */
                 $currency = $this->getReference(sprintf('currency_%s', $bucket[1]));
                 $startTime = new DateTime($bucket[0]);
                 $endDate = (clone $startTime)->modify(sprintf('+%d days', $vendor->getBucketDateDelta()));

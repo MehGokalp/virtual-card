@@ -98,7 +98,7 @@ class CreateController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function indexAction(
+    public function __invoke(
         Request $request,
         VirtualCardCreateWrapper $virtualCardWrapper,
         FormFactoryInterface $formFactory
@@ -111,7 +111,7 @@ class CreateController extends AbstractFOSRestController
             try {
                 $result = $virtualCardWrapper->add($form->getData());
 
-                $view = $this->view($result, Response::HTTP_OK);
+                $view = $this->view($result, Response::HTTP_CREATED);
 
                 return $this->handleView($view);
             } catch (NoMatchingBucketException $e) {

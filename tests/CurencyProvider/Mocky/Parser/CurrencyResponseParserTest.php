@@ -16,21 +16,21 @@ class CurrencyResponseParserTest extends TestCase
         $parsed = CurrencyResponseParser::parse($response);
         
         $rates = $parsed->getRates();
-        $this->assertCount(2, $rates);
+        self::assertCount(2, $rates);
     
         /**
          * @var Rate $first
          * @var Rate $second
          */
         $first = $rates[0];
-        $this->assertSame('EUR', $first->getFrom());
-        $this->assertSame('USD', $first->getTo());
-        $this->assertSame(1.1026, $first->getRate());
+        self::assertSame('EUR', $first->getFrom());
+        self::assertSame('USD', $first->getTo());
+        self::assertSame(1.1026, $first->getRate());
         
         $second = $rates[1];
-        $this->assertSame('EUR', $second->getFrom());
-        $this->assertSame('TRY', $second->getTo());
-        $this->assertSame(6.5359, $second->getRate());
+        self::assertSame('EUR', $second->getFrom());
+        self::assertSame('TRY', $second->getTo());
+        self::assertSame(6.5359, $second->getRate());
     }
     
     public function testInvalid(): void

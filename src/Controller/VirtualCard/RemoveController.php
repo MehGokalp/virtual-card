@@ -100,7 +100,7 @@ class RemoveController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function indexAction(
+    public function __invoke(
         Request $request,
         VirtualCardRemoveWrapper $virtualCardRemoveWrapper,
         FormFactoryInterface $formFactory

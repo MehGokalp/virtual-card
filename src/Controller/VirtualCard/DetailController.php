@@ -91,7 +91,7 @@ class DetailController extends AbstractFOSRestController
      * @param VirtualCardRepository $virtualCardRepository
      * @return Response
      */
-    public function indexAction(
+    public function __invoke(
         Request $request,
         FormFactoryInterface $formFactory,
         VirtualCardRepository $virtualCardRepository

@@ -3,21 +3,15 @@
 namespace VirtualCard\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use VirtualCard\Entity\User;
 
 class UserFixtures extends Fixture
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
+    /** @var UserPasswordEncoderInterface */
     private $userPasswordEncoder;
 
-    /**
-     * UserFixtures constructor.
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     */
     public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
     {
         $this->userPasswordEncoder = $userPasswordEncoder;

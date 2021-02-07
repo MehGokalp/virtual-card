@@ -85,7 +85,7 @@ class ListController extends AbstractFOSRestController
      * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function indexAction(
+    public function __invoke(
         Request $request,
         FormFactoryInterface $formFactory,
         VirtualCardRepository $virtualCardRepository,

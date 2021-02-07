@@ -38,8 +38,8 @@ class VendorServiceLoaderTest extends TestCase
     
     public function testExistsService(): void
     {
-        $this->assertInstanceOf(DummyVendorService::class, $this->vendorServiceLoader->get('AVendor', 'create'));
-        $this->assertInstanceOf(DummyVendorService::class, $this->vendorServiceLoader->get('CVendor', 'remove'));
+        self::assertInstanceOf(DummyVendorService::class, $this->vendorServiceLoader->get('AVendor', 'create'));
+        self::assertInstanceOf(DummyVendorService::class, $this->vendorServiceLoader->get('CVendor', 'remove'));
     }
     
     public function testNotExistsService(): void

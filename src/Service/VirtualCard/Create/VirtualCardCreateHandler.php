@@ -19,8 +19,8 @@ use function count;
  */
 class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
 {
-    use VendorServiceLoaderAware,
-        ValidatorAware;
+    use ValidatorAware;
+    use VendorServiceLoaderAware;
 
     /**
      * This handler sends requests to vendor's web service
@@ -50,16 +50,15 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
             throw new ValidationException((string)$errors);
         }
 
-        // MOCKED CODE REQUIREMENT
-        // We're using mocked service, it'll always return a static response
-        // Because of our architecture it must send unique reference key
-        // Instead of static, so we're generating this scenario
-        $vendorResult->setReference($vendorResult->getReference().strtoupper(uniqid('', true)));
-
         return (new CreateResult())
             ->setCardNumber($vendorResult->getCardNumber())
             ->setCvc($vendorResult->getCvc())
             ->setReference($vendorResult->getReference())
-            ->setVendor($vendorSlug);
+            ->setCurrency($vendorResult->getCurrency())
+            ->setBalance($vendorResult->getBalance())
+            ->setActivationDate($vendorResult->getActivationDate())
+            ->setExpireDate($vendorResult->getExpireDate())
+            ->setVendor($vendorSlug)
+        ;
     }
 }

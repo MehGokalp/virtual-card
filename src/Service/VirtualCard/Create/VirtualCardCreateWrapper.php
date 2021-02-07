@@ -19,8 +19,8 @@ use VirtualCard\Traits\LoggerTrait;
 
 class VirtualCardCreateWrapper
 {
-    use LoggerTrait,
-        EntityManagerAware;
+    use EntityManagerAware;
+    use LoggerTrait;
 
     /**
      * @var VirtualCardCreateHandler
@@ -92,7 +92,7 @@ class VirtualCardCreateWrapper
                 $createResult
                     ->setVirtualCardId($virtualCard->getId())
                     ->setProcessId($virtualCard->getProcessId())
-                    ->setExpireDate($virtualCard->getExpireDate());
+                ;
 
                 return $createResult;
             } catch (Throwable $e) {
@@ -124,7 +124,11 @@ class VirtualCardCreateWrapper
             ->setBaseBucket($baseBucket ?? $bucket)
             ->setCardNumber($createResult->getCardNumber())
             ->setCvc($createResult->getCvc())
-            ->setReference($createResult->getReference());
+            ->setReference($createResult->getReference())
+            ->setActivationDate($createResult->getActivationDate())
+            ->setExpireDate($createResult->getExpireDate())
+            ->setBalance($createResult->getBalance())
+        ;
     }
 
     protected function save(VirtualCard $virtualCard): void

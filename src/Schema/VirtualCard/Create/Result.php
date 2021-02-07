@@ -37,9 +37,24 @@ class Result
     private $expireDate;
 
     /**
+     * @var DateTimeInterface|null
+     */
+    private $activationDate;
+
+    /**
      * @var string|null
      */
     private $processId;
+
+    /**
+     * @var string
+     */
+    private $currency;
+
+    /**
+     * @var string
+     */
+    private $balance;
 
     /**
      * @return string|null
@@ -156,6 +171,25 @@ class Result
     }
 
     /**
+     * @return DateTimeInterface|null
+     */
+    public function getActivationDate(): ?DateTimeInterface
+    {
+        return $this->activationDate;
+    }
+
+    /**
+     * @param DateTimeInterface|null $activationDate
+     * @return Result
+     */
+    public function setActivationDate(?DateTimeInterface $activationDate): Result
+    {
+        $this->activationDate = $activationDate;
+
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getProcessId(): ?string
@@ -170,6 +204,44 @@ class Result
     public function setProcessId(?string $processId): Result
     {
         $this->processId = $processId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     * @return Result
+     */
+    public function setCurrency(string $currency): Result
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBalance(): int
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param int $balance
+     * @return Result
+     */
+    public function setBalance(int $balance): Result
+    {
+        $this->balance = $balance;
 
         return $this;
     }

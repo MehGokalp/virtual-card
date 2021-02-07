@@ -11,8 +11,13 @@ class CreateResponseParser
         $parsedResponse = \GuzzleHttp\json_decode($response, true);
 
         return (new Result())
-            ->setReference($parsedResponse['referenceCode'] ?? null)
+            ->setReference($parsedResponse['reference'] ?? null)
+            ->setCurrency($parsedResponse['currency'])
+            ->setBalance($parsedResponse['balance'])
+            ->setActivationDate(new \DateTime($parsedResponse['activationDate']))
+            ->setExpireDate(new \DateTime($parsedResponse['expireDate']))
+            ->setCardNumber($parsedResponse['cardNumber'] ?? null)
             ->setCvc($parsedResponse['cvc'] ?? null)
-            ->setCardNumber($parsedResponse['cardNumber'] ?? null);
+        ;
     }
 }

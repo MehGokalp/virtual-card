@@ -10,7 +10,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function __invoke()
     {
         $this->createAccessDeniedException();
     }
