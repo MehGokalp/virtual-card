@@ -25,19 +25,20 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
 
     /**
      * @param string $method
+     * @param string|null $body
      * @param string $processId
      * @param array $options
      * @return ResponseInterface
      *
-     * @throws RouterMethodNotFoundException
      * @throws GuzzleException
+     * @throws RouterMethodNotFoundException
      */
-    public function request(string $method, string $processId, array $options = []): ResponseInterface
+    public function request(string $method, ?string $body, string $processId, array $options = []): ResponseInterface
     {
         $optionsResolver = new RequestOptionsResolver();
         $options = $optionsResolver->resolve($options);
 
-        $request = $this->requestBuilder->build($method, $processId);
+        $request = $this->requestBuilder->build($method, $processId, $body);
 
         return $this->send($request, $options);
     }

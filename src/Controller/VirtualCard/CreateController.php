@@ -24,7 +24,7 @@ class CreateController extends AbstractFOSRestController
     /**
      * Create virtual card with given parameters
      *
-     * @Annotations\Put("/add")
+     * @Annotations\Post("/")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -98,7 +98,7 @@ class CreateController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function __invoke(
+    public function indexAction(
         Request $request,
         VirtualCardCreateWrapper $virtualCardWrapper,
         FormFactoryInterface $formFactory

@@ -4,18 +4,20 @@ namespace VirtualCard\Service\Bucket;
 
 use Money\Money;
 use VirtualCard\Entity\Bucket;
-use VirtualCard\Library\Helper\BucketHelper;
+use VirtualCard\Service\Factory\MoneyFactory;
 
 class SpendBucketWrapper extends AbstractBucketWrapper
 {
     public function canSpend(Bucket $bucket, Money $amount): bool
     {
-        return BucketHelper::getBalanceAsMoney($bucket)->greaterThanOrEqual($amount);
+        return MoneyFactory::create($bucket->getBalance(), $bucket->getCurrency()->getCode())->greaterThanOrEqual(
+            $amount
+        );
     }
 
     public function spend(Bucket $bucket, Money $balance): Bucket
     {
-        $bucketBalance = BucketHelper::getBalanceAsMoney($bucket);
+        $bucketBalance = MoneyFactory::create($bucket->getBalance(), $bucket->getCurrency()->getCode());
         $newBalance = $bucketBalance->subtract($balance);
 
         $reducedBucket = $this->clone($bucket);

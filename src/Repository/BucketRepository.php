@@ -26,12 +26,14 @@ class BucketRepository extends ServiceEntityRepository
      * @param DateTimeInterface $expireDate
      *
      * @param int $balance
+     * @param string $currencyCode
      * @return array|Bucket[]
      */
     public function findWithActivationExpireWithBalance(
         DateTimeInterface $activationDate,
         DateTimeInterface $expireDate,
-        int $balance
+        int $balance,
+        string $currencyCode
     ): array {
         return $this->createQueryBuilder('b')
             ->select('b')
@@ -40,9 +42,11 @@ class BucketRepository extends ServiceEntityRepository
             ->join('b.vendor', 'v')
             ->join('b.currency', 'c')
             ->andWhere('b.startDate <= :startDate AND b.endDate >= :endDate AND b.expired = 0 AND b.balance > :balance')
+            ->andWhere('c.code = :code')
             ->setParameter('startDate', $activationDate->format('Y-m-d'))
             ->setParameter('endDate', $expireDate->format('Y-m-d'))
             ->setParameter('balance', $balance)
+            ->setParameter('code', $currencyCode)
             ->orderBy('b.balance', 'DESC')
             ->getQuery()
             ->getResult();

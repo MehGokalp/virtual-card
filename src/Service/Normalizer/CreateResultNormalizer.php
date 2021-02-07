@@ -18,6 +18,10 @@ class CreateResultNormalizer implements ContextAwareNormalizerInterface
             'reference' => $result->getReference(),
             'cardNumber' => $result->getCardNumber(),
             'cvc' => $result->getCvc(),
+            'vendor' => $result->getVendor(),
+            'currency' => $result->getCurrency(),
+            'balance' => $result->getBalance(),
+            'activationDate' => $result->getActivationDate()->format('Y-m-d'),
             'expireDate' => $result->getExpireDate()->format('Y-m-d'),
         ];
     }

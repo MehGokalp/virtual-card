@@ -10,12 +10,12 @@ use VirtualCard\Entity\Currency as CurrencyEntity;
 use VirtualCard\Entity\VirtualCard;
 use VirtualCard\Exception\VirtualCard\ExpiredVirtualCardException;
 use VirtualCard\Exception\VirtualCard\VirtualCardNotFoundException;
-use VirtualCard\Library\Helper\VirtualCardHelper;
 use VirtualCard\Repository\BucketRepository;
 use VirtualCard\Repository\VirtualCardRepository;
 use VirtualCard\Schema\VirtualCard\Remove\Result as RemoveResult;
 use VirtualCard\Service\Bucket\CollectBucketWrapper;
 use VirtualCard\Service\Currency\CurrencyWrapper;
+use VirtualCard\Service\Factory\MoneyFactory;
 use VirtualCard\Traits\EntityManagerAware;
 use VirtualCard\Traits\LoggerTrait;
 
@@ -122,7 +122,7 @@ class VirtualCardRemoveWrapper
 
     protected function getBalance(VirtualCard $virtualCard): Money
     {
-        $balance = VirtualCardHelper::getBalanceAsMoney($virtualCard);
+        $balance = MoneyFactory::create($virtualCard->getBalance(), $virtualCard->getCurrency()->getCode());
         if ($virtualCard->getCurrency()->getCode() !== CurrencyEntity::DEFAULT) {
             $balance = $this->currencyWrapper->convert($balance, new Currency(CurrencyEntity::DEFAULT));
         }

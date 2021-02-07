@@ -9,9 +9,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use VirtualCard\Exception\Http\BadRequestHttpException;
 use VirtualCard\Exception\Http\ServiceUnavailableHttpException;
-use VirtualCard\Form\DetailVirtualCardType;
 use VirtualCard\Repository\VirtualCardRepository;
 use VirtualCard\Traits\LoggerTrait;
 
@@ -22,7 +20,7 @@ class DetailController extends AbstractFOSRestController
     /**
      * Get detail of the virtual card
      *
-     * @Annotations\Get("/detail")
+     * @Annotations\Get("/{reference}", requirements={"reference": "\w+"})
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -54,17 +52,6 @@ class DetailController extends AbstractFOSRestController
      * )
      *
      * @SWG\Response(
-     *     response="400",
-     *     description="The data that you send is not valid",
-     *     @SWG\Schema(
-     *          type="object",
-     *          properties={
-     *              @SWG\Property(property="message", type="string")
-     *          }
-     *     )
-     * )
-     *
-     * @SWG\Response(
      *     response="404",
      *     description="There is no matching virtual card with given reference",
      *     @SWG\Schema(
@@ -91,40 +78,31 @@ class DetailController extends AbstractFOSRestController
      * @param VirtualCardRepository $virtualCardRepository
      * @return Response
      */
-    public function __invoke(
+    public function indexAction(
         Request $request,
-        FormFactoryInterface $formFactory,
         VirtualCardRepository $virtualCardRepository
     ): Response {
-        $form = $formFactory->create(DetailVirtualCardType::class);
+        try {
+            $virtualCard = $virtualCardRepository->findVirtualCardByRef($request->get('reference')->getData());
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() === true && $form->isValid() === true) {
-            try {
-                $virtualCard = $virtualCardRepository->findVirtualCardByRef($form->get('reference')->getData());
-
-                if ($virtualCard === null) {
-                    $view = $this->view(
-                        [
-                            'message' => 'Virtual card not found with given reference',
-                        ],
-                        404
-                    );
-
-                    return $this->handleView($view);
-                }
-
-                $view = $this->view($virtualCard, Response::HTTP_OK);
+            if ($virtualCard === null) {
+                $view = $this->view(
+                    [
+                        'message' => 'Virtual card not found with given reference',
+                    ],
+                    404
+                );
 
                 return $this->handleView($view);
-            } catch (Throwable $e) {
-                $this->logger->alert($e);
-
-                throw new ServiceUnavailableHttpException();
             }
-        }
 
-        throw new BadRequestHttpException();
+            $view = $this->view($virtualCard, Response::HTTP_OK);
+
+            return $this->handleView($view);
+        } catch (Throwable $e) {
+            $this->logger->alert($e);
+
+            throw new ServiceUnavailableHttpException();
+        }
     }
 }

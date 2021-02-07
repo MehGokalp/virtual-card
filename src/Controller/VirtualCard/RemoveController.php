@@ -24,7 +24,7 @@ class RemoveController extends AbstractFOSRestController
     /**
      * Delete virtual card with given id
      *
-     * @Annotations\Delete("/remove")
+     * @Annotations\Delete("/")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -100,7 +100,7 @@ class RemoveController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function __invoke(
+    public function indexAction(
         Request $request,
         VirtualCardRemoveWrapper $virtualCardRemoveWrapper,
         FormFactoryInterface $formFactory

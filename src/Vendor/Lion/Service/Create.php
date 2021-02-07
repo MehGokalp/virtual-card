@@ -25,12 +25,12 @@ class Create implements CreateInterface, VendorServiceInterface
     }
 
     /**
-     * @param VirtualCard $virtualCard
+     * @param array $virtualCard
      * @return CreateResult
      * @throws RouterMethodNotFoundException
      * @throws GuzzleException
      */
-    public function getResult(VirtualCard $virtualCard): CreateResult
+    public function getResult(array $virtualCard): CreateResult
     {
         $response = $this->clientWrapper->request(VendorServiceLoader::CREATE, $virtualCard->getProcessId());
 

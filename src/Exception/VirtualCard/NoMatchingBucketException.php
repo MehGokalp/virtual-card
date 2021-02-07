@@ -8,13 +8,11 @@ use VirtualCard\Entity\VirtualCard;
 
 class NoMatchingBucketException extends Exception
 {
-    /**
-     * @var VirtualCard
-     */
+    /** @var array */
     private $virtualCard;
 
     public function __construct(
-        VirtualCard $virtualCard,
+        array $virtualCard,
         string $message = 'There is no matching bucket with requested virtual card',
         Throwable $previous = null
     ) {
@@ -22,10 +20,7 @@ class NoMatchingBucketException extends Exception
         parent::__construct($message, 5e2, $previous);
     }
 
-    /**
-     * @return VirtualCard
-     */
-    public function getVirtualCard(): VirtualCard
+    public function getVirtualCard(): array
     {
         return $this->virtualCard;
     }

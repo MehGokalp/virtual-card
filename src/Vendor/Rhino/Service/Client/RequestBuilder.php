@@ -6,8 +6,9 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use VirtualCard\Entity\Vendor;
 use VirtualCard\Exception\Client\RouterMethodNotFoundException;
+use VirtualCard\Vendor\RequestBuilderInterface;
 
-class RequestBuilder
+class RequestBuilder implements RequestBuilderInterface
 {
     /**
      * @var Router
@@ -22,10 +23,11 @@ class RequestBuilder
     /**
      * @param string $method
      * @param string $processId
+     * @param string|null $body
      * @return RequestInterface
      * @throws RouterMethodNotFoundException
      */
-    public function build(string $method, string $processId): RequestInterface
+    public function build(string $method, string $processId, ?string $body = null): RequestInterface
     {
         $headers = [
             'X-Method' => $method,
@@ -33,11 +35,11 @@ class RequestBuilder
             'X-Service' => Vendor::RHINO,
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
         ];
 
         [$httpMethod, $url] = $this->router->getRoute($method);
 
-        return new Request($httpMethod, $url, $headers);
+        return new Request($httpMethod, $url, $headers, $body);
     }
 }

@@ -29,35 +29,33 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
      * If you want to do something different from that
      * architecture create another handler
      *
-     * @param VirtualCard $virtualCard
+     * @param array $virtualCard
      * @param Vendor $vendor
      * @return CreateResult
      * @throws ValidationException
      */
-    public function handle(VirtualCard $virtualCard, Vendor $vendor): CreateResult
+    public function handle(array $virtualCard, Vendor $vendor): CreateResult
     {
         $vendorSlug = $vendor->getSlug();
-        /**
-         * @var CreateInterface $service
-         */
+        /** @var CreateInterface $service */
         $service = $this->vendorServiceLoader->get($vendorSlug, VendorServiceLoader::CREATE);
 
-        $vendorResult = $service->getResult($virtualCard);
+        $resultDTO = $service->getResult($virtualCard);
 
-        $errors = $this->validator->validate($vendorResult);
+        $errors = $this->validator->validate($resultDTO);
 
         if (count($errors) > 0) {
             throw new ValidationException((string)$errors);
         }
 
         return (new CreateResult())
-            ->setCardNumber($vendorResult->getCardNumber())
-            ->setCvc($vendorResult->getCvc())
-            ->setReference($vendorResult->getReference())
-            ->setCurrency($vendorResult->getCurrency())
-            ->setBalance($vendorResult->getBalance())
-            ->setActivationDate($vendorResult->getActivationDate())
-            ->setExpireDate($vendorResult->getExpireDate())
+            ->setCardNumber($resultDTO->getCardNumber())
+            ->setCvc($resultDTO->getCvc())
+            ->setReference($resultDTO->getReference())
+            ->setCurrency($resultDTO->getCurrency())
+            ->setBalance($resultDTO->getBalance())
+            ->setActivationDate($resultDTO->getActivationDate())
+            ->setExpireDate($resultDTO->getExpireDate())
             ->setVendor($vendorSlug)
         ;
     }

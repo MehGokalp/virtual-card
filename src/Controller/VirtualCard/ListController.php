@@ -23,7 +23,7 @@ class ListController extends AbstractFOSRestController
     /**
      * List virtual cards with given filters
      *
-     * @Annotations\Get("/list")
+     * @Annotations\Get("/")
      *
      * @SWG\Tag(name="Virtual Card API")
      *
@@ -85,7 +85,7 @@ class ListController extends AbstractFOSRestController
      * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function __invoke(
+    public function indexAction(
         Request $request,
         FormFactoryInterface $formFactory,
         VirtualCardRepository $virtualCardRepository,

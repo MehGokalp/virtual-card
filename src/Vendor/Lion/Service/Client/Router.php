@@ -31,11 +31,11 @@ class Router
     public function getRoute(string $method): array
     {
         if ($method === VendorServiceLoader::CREATE) {
-            return ['GET', $this->createWebServiceUrl];
+            return ['POST', $this->createWebServiceUrl];
         }
 
         if ($method === VendorServiceLoader::REMOVE) {
-            return ['GET', $this->removeWebServiceUrl];
+            return ['DELETE', $this->removeWebServiceUrl];
         }
 
         throw new RouterMethodNotFoundException($method);

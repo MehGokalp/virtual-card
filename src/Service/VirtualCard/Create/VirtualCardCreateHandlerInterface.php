@@ -8,5 +8,5 @@ use VirtualCard\Schema\VirtualCard\Create\Result;
 
 interface VirtualCardCreateHandlerInterface
 {
-    public function handle(VirtualCard $virtualCard, Vendor $vendor): Result;
+    public function handle(array $virtualCard, Vendor $vendor): Result;
 }

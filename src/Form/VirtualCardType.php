@@ -58,8 +58,7 @@ class VirtualCardType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => VirtualCard::class,
-                'method' => Request::METHOD_PUT,
+                'method' => Request::METHOD_POST,
                 'csrf_protection' => false,
             ]
         );

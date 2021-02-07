@@ -1,27 +1,23 @@
 virtual_card_create:
     type: rest
     resource: VirtualCard\Controller\VirtualCard\CreateController
-    prefix: /virtual-card
     name_prefix: virtual_card_create_
     defaults: { _format: json }
 
 virtual_card_remove:
     type: rest
     resource: VirtualCard\Controller\VirtualCard\RemoveController
-    prefix: /virtual-card
     name_prefix: virtual_card_remove_
     defaults: { _format: json }
 
 virtual_card_detail:
     type: rest
     resource: VirtualCard\Controller\VirtualCard\DetailController
-    prefix: /virtual-card
     name_prefix: virtual_card_detail_
     defaults: { _format: json }
 
 virtual_card_list:
     type: rest
     resource: VirtualCard\Controller\VirtualCard\ListController
-    prefix: /virtual-card
     name_prefix: virtual_card_list_
     defaults: { _format: json }
