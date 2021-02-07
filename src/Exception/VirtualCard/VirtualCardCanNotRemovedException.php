@@ -12,13 +12,16 @@ class VirtualCardCanNotRemovedException extends Exception
      * @var VirtualCard
      */
     private $virtualCard;
-    
-    public function __construct(VirtualCard $virtualCard, string $message = 'Virtual card can not removed', Throwable $previous = null)
-    {
+
+    public function __construct(
+        VirtualCard $virtualCard,
+        string $message = 'Virtual card can not removed',
+        Throwable $previous = null
+    ) {
         $this->virtualCard = $virtualCard;
         parent::__construct($message, 5e4, $previous);
     }
-    
+
     /**
      * @return VirtualCard
      */

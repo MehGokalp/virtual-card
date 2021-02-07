@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Vendor\Rhino\Service;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -17,12 +18,12 @@ class Remove implements RemoveInterface, VendorServiceInterface
      * @var ClientWrapper
      */
     private $clientWrapper;
-    
+
     public function __construct(ClientWrapper $clientWrapper)
     {
         $this->clientWrapper = $clientWrapper;
     }
-    
+
     /**
      * @param VirtualCard $virtualCard
      * @return RemoveResult
@@ -32,7 +33,7 @@ class Remove implements RemoveInterface, VendorServiceInterface
     public function getResult(VirtualCard $virtualCard): RemoveResult
     {
         $response = $this->clientWrapper->request(VendorServiceLoader::REMOVE, $virtualCard->getProcessId());
-        
-        return RemoveResponseParser::parse((string) $response->getBody());
+
+        return RemoveResponseParser::parse((string)$response->getBody());
     }
 }

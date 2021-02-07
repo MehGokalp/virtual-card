@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Schema\Vendor\Create;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,7 +12,7 @@ class Result
      * @Assert\NotBlank()
      */
     private $reference;
-    
+
     /**
      * @var string|null
      *
@@ -19,7 +20,7 @@ class Result
      * @Assert\Luhn()
      */
     private $cardNumber;
-    
+
     /**
      * @var string|null
      *
@@ -27,7 +28,7 @@ class Result
      * @Assert\Length(max="3", min="3")
      */
     private $cvc;
-    
+
     /**
      * @return string|null
      */
@@ -35,7 +36,7 @@ class Result
     {
         return $this->reference;
     }
-    
+
     /**
      * @param string|null $reference
      * @return Result
@@ -43,10 +44,10 @@ class Result
     public function setReference(?string $reference): Result
     {
         $this->reference = $reference;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -54,7 +55,7 @@ class Result
     {
         return $this->cardNumber;
     }
-    
+
     /**
      * @param string|null $cardNumber
      * @return Result
@@ -62,10 +63,10 @@ class Result
     public function setCardNumber(?string $cardNumber): Result
     {
         $this->cardNumber = $cardNumber;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -73,7 +74,7 @@ class Result
     {
         return $this->cvc;
     }
-    
+
     /**
      * @param string|null $cvc
      * @return Result
@@ -81,7 +82,7 @@ class Result
     public function setCvc(?string $cvc): Result
     {
         $this->cvc = $cvc;
-        
+
         return $this;
     }
 }

@@ -8,10 +8,10 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
-use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Throwable;
+use VirtualCard\Exception\Http\BadRequestHttpException;
+use VirtualCard\Exception\Http\ServiceUnavailableHttpException;
 use VirtualCard\Exception\VirtualCard\NoMatchingBucketException;
 use VirtualCard\Form\VirtualCardType;
 use VirtualCard\Service\VirtualCard\Create\VirtualCardCreateWrapper;
@@ -20,7 +20,7 @@ use VirtualCard\Traits\LoggerTrait;
 class CreateController extends AbstractFOSRestController
 {
     use LoggerTrait;
-    
+
     /**
      * Create virtual card with given parameters
      *
@@ -98,28 +98,31 @@ class CreateController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function indexAction(Request $request, VirtualCardCreateWrapper $virtualCardWrapper, FormFactoryInterface $formFactory): Response
-    {
+    public function indexAction(
+        Request $request,
+        VirtualCardCreateWrapper $virtualCardWrapper,
+        FormFactoryInterface $formFactory
+    ): Response {
         $form = $formFactory->create(VirtualCardType::class);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() === true && $form->isValid() === true) {
             try {
                 $result = $virtualCardWrapper->add($form->getData());
-                
-                $view = $this->view($result, 200);
-                
+
+                $view = $this->view($result, Response::HTTP_OK);
+
                 return $this->handleView($view);
             } catch (NoMatchingBucketException $e) {
                 throw new NotAcceptableHttpException($e->getMessage(), $e);
             } catch (Throwable $e) {
                 $this->logger->alert($e);
-                
-                throw new ServiceUnavailableHttpException(null, 'Service is currently unavailable please try again later.');
+
+                throw new ServiceUnavailableHttpException();
             }
         }
-        
-        throw new BadRequestHttpException('Your data that you sent is not valid.');
+
+        throw new BadRequestHttpException();
     }
 }

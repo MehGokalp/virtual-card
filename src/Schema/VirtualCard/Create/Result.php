@@ -10,37 +10,37 @@ class Result
      * @var string|null
      */
     private $reference;
-    
+
     /**
      * @var string|null
      */
     private $cardNumber;
-    
+
     /**
      * @var string|null
      */
     private $cvc;
-    
+
     /**
      * @var string|null
      */
     private $vendor;
-    
+
     /**
      * @var int|null
      */
     private $virtualCardId;
-    
+
     /**
      * @var DateTimeInterface|null
      */
     private $expireDate;
-    
+
     /**
      * @var string|null
      */
     private $processId;
-    
+
     /**
      * @return string|null
      */
@@ -48,7 +48,7 @@ class Result
     {
         return $this->reference;
     }
-    
+
     /**
      * @param string|null $reference
      * @return Result
@@ -56,10 +56,10 @@ class Result
     public function setReference(?string $reference): Result
     {
         $this->reference = $reference;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -67,7 +67,7 @@ class Result
     {
         return $this->cardNumber;
     }
-    
+
     /**
      * @param string|null $cardNumber
      * @return Result
@@ -75,10 +75,10 @@ class Result
     public function setCardNumber(?string $cardNumber): Result
     {
         $this->cardNumber = $cardNumber;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -86,7 +86,7 @@ class Result
     {
         return $this->cvc;
     }
-    
+
     /**
      * @param string|null $cvc
      * @return Result
@@ -94,10 +94,10 @@ class Result
     public function setCvc(?string $cvc): Result
     {
         $this->cvc = $cvc;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -105,7 +105,7 @@ class Result
     {
         return $this->vendor;
     }
-    
+
     /**
      * @param string|null $vendor
      * @return Result
@@ -113,10 +113,10 @@ class Result
     public function setVendor(?string $vendor): Result
     {
         $this->vendor = $vendor;
-        
+
         return $this;
     }
-    
+
     /**
      * @return int|null
      */
@@ -124,7 +124,7 @@ class Result
     {
         return $this->virtualCardId;
     }
-    
+
     /**
      * @param int|null $virtualCardId
      * @return Result
@@ -132,10 +132,10 @@ class Result
     public function setVirtualCardId(?int $virtualCardId): Result
     {
         $this->virtualCardId = $virtualCardId;
-        
+
         return $this;
     }
-    
+
     /**
      * @return DateTimeInterface|null
      */
@@ -143,7 +143,7 @@ class Result
     {
         return $this->expireDate;
     }
-    
+
     /**
      * @param DateTimeInterface|null $expireDate
      * @return Result
@@ -151,10 +151,10 @@ class Result
     public function setExpireDate(?DateTimeInterface $expireDate): Result
     {
         $this->expireDate = $expireDate;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -162,7 +162,7 @@ class Result
     {
         return $this->processId;
     }
-    
+
     /**
      * @param string|null $processId
      * @return Result
@@ -170,7 +170,7 @@ class Result
     public function setProcessId(?string $processId): Result
     {
         $this->processId = $processId;
-        
+
         return $this;
     }
 }

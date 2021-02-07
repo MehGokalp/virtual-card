@@ -14,7 +14,7 @@ class VendorFixtures extends Fixture
      * @var VendorFactory
      */
     private $vendorFactory;
-    
+
     /**
      * VendorFixtures constructor.
      * @param VendorFactory $vendorFactory
@@ -23,7 +23,7 @@ class VendorFixtures extends Fixture
     {
         $this->vendorFactory = $vendorFactory;
     }
-    
+
     /**
      * @param ObjectManager $manager
      * @throws ValidationException
@@ -33,23 +33,23 @@ class VendorFixtures extends Fixture
         $vendors = [
             Vendor::BEAR => [
                 'limit' => 200000,
-                'delta' => 29
+                'delta' => 29,
             ],
             Vendor::LION => [
                 'limit' => 50000,
-                'delta' => 13
+                'delta' => 13,
             ],
             Vendor::RHINO => [
                 'limit' => 100000,
-                'delta' => 19
-            ]
+                'delta' => 19,
+            ],
         ];
-        
-        foreach ($vendors AS $slug => $data) {
+
+        foreach ($vendors as $slug => $data) {
             // * 100 needed because we're keeping the money instances in cent/kuruş type on database
             $vendor = $this->vendorFactory->create($slug, $data['delta'], $data['limit'] * 100);
             $this->addReference(sprintf('vendor_%s', $slug), $vendor);
-            
+
             $this->vendorFactory->persist($vendor);
         }
         $this->vendorFactory->flush();

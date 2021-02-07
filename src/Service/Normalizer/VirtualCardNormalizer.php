@@ -18,10 +18,10 @@ class VirtualCardNormalizer implements ContextAwareNormalizerInterface
             'currency' => $virtualCard->getCurrency()->getCode(),
             'activationDate' => $virtualCard->getActivationDate()->format('Y-m-d'),
             'expireDate' => $virtualCard->getExpireDate()->format('Y-m-d'),
-            'cardNumber' => $virtualCard->getCardNumber()
+            'cardNumber' => $virtualCard->getCardNumber(),
         ];
     }
-    
+
     /**
      * @inheritDoc
      */

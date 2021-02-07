@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\VirtualCard\Remove;
 
 use VirtualCard\Entity\Vendor;

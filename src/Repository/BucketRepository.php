@@ -20,7 +20,7 @@ class BucketRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Bucket::class);
     }
-    
+
     /**
      * @param DateTimeInterface $activationDate
      * @param DateTimeInterface $expireDate
@@ -28,8 +28,11 @@ class BucketRepository extends ServiceEntityRepository
      * @param int $balance
      * @return array|Bucket[]
      */
-    public function findWithActivationExpireWithBalance(DateTimeInterface $activationDate, DateTimeInterface $expireDate, int $balance): array
-    {
+    public function findWithActivationExpireWithBalance(
+        DateTimeInterface $activationDate,
+        DateTimeInterface $expireDate,
+        int $balance
+    ): array {
         return $this->createQueryBuilder('b')
             ->select('b')
             ->addSelect('v')
@@ -42,10 +45,9 @@ class BucketRepository extends ServiceEntityRepository
             ->setParameter('balance', $balance)
             ->orderBy('b.balance', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    
+
     /**
      * @param Bucket $base
      * @return Bucket
@@ -63,7 +65,6 @@ class BucketRepository extends ServiceEntityRepository
             ->setParameter('base', $base)
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 }

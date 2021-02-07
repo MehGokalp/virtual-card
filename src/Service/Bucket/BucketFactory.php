@@ -9,12 +9,13 @@ use VirtualCard\Entity\Vendor;
 use VirtualCard\Exception\ValidationException;
 use VirtualCard\Service\Factory\AbstractFactory;
 use VirtualCard\Traits\ValidatorAware;
+
 use function count;
 
 class BucketFactory extends AbstractFactory
 {
     use ValidatorAware;
-    
+
     /**
      * @param DateTime $startDate
      * @param DateTime $endDate
@@ -28,21 +29,20 @@ class BucketFactory extends AbstractFactory
     {
         $clonedStartDate = (clone $startDate)->setTime(0, 0, 0);
         $clonedEndDate = (clone $endDate)->setTime(0, 0, 0);
-        
+
         $bucket = (new Bucket())
             ->setStartDate($clonedStartDate)
             ->setEndDate($clonedEndDate)
             ->setCurrency($currency)
             ->setVendor($vendor)
-            ->setBalance($vendor->getBucketLimit())
-        ;
-        
+            ->setBalance($vendor->getBucketLimit());
+
         $errors = $this->validator->validate($bucket);
-        
+
         if (count($errors) > 0) {
-            throw new ValidationException((string) $errors);
+            throw new ValidationException((string)$errors);
         }
-        
+
         return $bucket;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Vendor\Bear\Service\Client;
 
 use GuzzleHttp\Psr7\Request;
@@ -12,12 +13,12 @@ class RequestBuilder
      * @var Router
      */
     private $router;
-    
+
     public function __construct(Router $router)
     {
         $this->router = $router;
     }
-    
+
     /**
      * @param string $method
      * @param string $processId
@@ -32,11 +33,11 @@ class RequestBuilder
             'X-Service' => Vendor::BEAR,
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ];
-    
+
         [$httpMethod, $url] = $this->router->getRoute($method);
-    
+
         return new Request($httpMethod, $url, $headers);
     }
 }

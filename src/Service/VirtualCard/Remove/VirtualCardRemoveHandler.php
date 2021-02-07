@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\VirtualCard\Remove;
 
 use VirtualCard\Entity\Vendor;
@@ -10,14 +11,14 @@ use VirtualCard\Service\VendorServiceLoader;
 use VirtualCard\Traits\ValidatorAware;
 use VirtualCard\Traits\VendorServiceLoaderAware;
 use VirtualCard\Vendor\RemoveInterface;
+
 use function count;
 
 class VirtualCardRemoveHandler implements VirtualCardRemoveHandlerInterface
 {
     use VendorServiceLoaderAware,
-        ValidatorAware
-    ;
-    
+        ValidatorAware;
+
     /**
      * This handler sends requests to vendor's web service
      * after then it processes it's response
@@ -37,22 +38,21 @@ class VirtualCardRemoveHandler implements VirtualCardRemoveHandlerInterface
          * @var RemoveInterface $service
          */
         $service = $this->vendorServiceLoader->get($vendor->getSlug(), VendorServiceLoader::REMOVE);
-        
+
         $vendorResult = $service->getResult($virtualCard);
-        
+
         $errors = $this->validator->validate($vendorResult);
-        
+
         if (count($errors) > 0) {
-            throw new ValidationException((string) $errors);
+            throw new ValidationException((string)$errors);
         }
-        
+
         // Check card is removed or not
         if ($vendorResult->getStatus() !== 1) {
             throw new VirtualCardCanNotRemovedException($virtualCard);
         }
-        
+
         return (new RemoveResult())
-            ->setStatus($vendorResult->getStatus())
-        ;
+            ->setStatus($vendorResult->getStatus());
     }
 }

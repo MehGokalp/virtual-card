@@ -8,7 +8,7 @@ class Result
      * @var array|Rate[]
      */
     private $rates = [];
-    
+
     /**
      * @return array
      */
@@ -16,7 +16,7 @@ class Result
     {
         return $this->rates;
     }
-    
+
     /**
      * @param array $rates
      * @return Result
@@ -24,7 +24,7 @@ class Result
     public function setRates(array $rates): Result
     {
         $this->rates = $rates;
-        
+
         return $this;
     }
 }

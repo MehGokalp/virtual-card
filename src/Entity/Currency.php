@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Currency
 {
     public const DEFAULT = self::USD;
-    
+
     public const USD = 'USD';
     public const EUR = 'EUR';
-    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Library\Helper;
 
 use Money\Currency;

@@ -8,9 +8,9 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Throwable;
+use VirtualCard\Exception\Http\BadRequestHttpException;
+use VirtualCard\Exception\Http\ServiceUnavailableHttpException;
 use VirtualCard\Form\DetailVirtualCardType;
 use VirtualCard\Repository\VirtualCardRepository;
 use VirtualCard\Traits\LoggerTrait;
@@ -18,7 +18,7 @@ use VirtualCard\Traits\LoggerTrait;
 class DetailController extends AbstractFOSRestController
 {
     use LoggerTrait;
-    
+
     /**
      * Get detail of the virtual card
      *
@@ -91,34 +91,40 @@ class DetailController extends AbstractFOSRestController
      * @param VirtualCardRepository $virtualCardRepository
      * @return Response
      */
-    public function indexAction(Request $request, FormFactoryInterface $formFactory, VirtualCardRepository $virtualCardRepository): Response
-    {
+    public function indexAction(
+        Request $request,
+        FormFactoryInterface $formFactory,
+        VirtualCardRepository $virtualCardRepository
+    ): Response {
         $form = $formFactory->create(DetailVirtualCardType::class);
-    
+
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() === true && $form->isValid() === true) {
             try {
                 $virtualCard = $virtualCardRepository->findVirtualCardByRef($form->get('reference')->getData());
-                
+
                 if ($virtualCard === null) {
-                    $view = $this->view([
-                        'message' => 'Virtual card not found with given reference'
-                    ], 404);
-    
+                    $view = $this->view(
+                        [
+                            'message' => 'Virtual card not found with given reference',
+                        ],
+                        404
+                    );
+
                     return $this->handleView($view);
                 }
-            
-                $view = $this->view($virtualCard, 200);
-            
+
+                $view = $this->view($virtualCard, Response::HTTP_OK);
+
                 return $this->handleView($view);
             } catch (Throwable $e) {
                 $this->logger->alert($e);
-            
-                throw new ServiceUnavailableHttpException(null, 'Service is currently unavailable please try again later.');
+
+                throw new ServiceUnavailableHttpException();
             }
         }
-    
-        throw new BadRequestHttpException('Your data that you sent is not valid.');
+
+        throw new BadRequestHttpException();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\VirtualCard\Remove;
 
 use DateTime;
@@ -21,34 +22,33 @@ use VirtualCard\Traits\LoggerTrait;
 class VirtualCardRemoveWrapper
 {
     use LoggerTrait,
-        EntityManagerAware
-    ;
-    
+        EntityManagerAware;
+
     /**
      * @var BucketRepository
      */
     private $bucketRepository;
-    
+
     /**
      * @var CurrencyWrapper
      */
     private $currencyWrapper;
-    
+
     /**
      * @var VirtualCardRemoveHandler
      */
     private $virtualCardRemoveHandler;
-    
+
     /**
      * @var VirtualCardRepository
      */
     private $virtualCardRepository;
-    
+
     /**
      * @var CollectBucketWrapper
      */
     private $collectBucketWrapper;
-    
+
     /**
      * VirtualCardWrapper constructor.
      * @param VirtualCardRemoveHandler $virtualCardRemoveHandler
@@ -57,15 +57,20 @@ class VirtualCardRemoveWrapper
      * @param CurrencyWrapper $currencyWrapper
      * @param CollectBucketWrapper $collectBucketWrapper
      */
-    public function __construct(VirtualCardRemoveHandler $virtualCardRemoveHandler, BucketRepository $bucketRepository, VirtualCardRepository $virtualCardRepository, CurrencyWrapper $currencyWrapper, CollectBucketWrapper $collectBucketWrapper)
-    {
+    public function __construct(
+        VirtualCardRemoveHandler $virtualCardRemoveHandler,
+        BucketRepository $bucketRepository,
+        VirtualCardRepository $virtualCardRepository,
+        CurrencyWrapper $currencyWrapper,
+        CollectBucketWrapper $collectBucketWrapper
+    ) {
         $this->bucketRepository = $bucketRepository;
         $this->currencyWrapper = $currencyWrapper;
         $this->virtualCardRemoveHandler = $virtualCardRemoveHandler;
         $this->virtualCardRepository = $virtualCardRepository;
         $this->collectBucketWrapper = $collectBucketWrapper;
     }
-    
+
     /**
      * @param string $reference
      * @return VirtualCard
@@ -75,18 +80,20 @@ class VirtualCardRemoveWrapper
     public function check(string $reference): VirtualCard
     {
         $virtualCard = $this->virtualCardRepository->findVirtualCardByRef($reference);
-        
+
         if ($virtualCard === null) {
-            throw new VirtualCardNotFoundException(sprintf('Virtual card not found with given reference: %s', $reference));
+            throw new VirtualCardNotFoundException(
+                sprintf('Virtual card not found with given reference: %s', $reference)
+            );
         }
-        
+
         if ($virtualCard->getExpireDate() < (new DateTime())->setTime(0, 0, 0)) {
             throw new ExpiredVirtualCardException($virtualCard);
         }
-        
+
         return $virtualCard;
     }
-    
+
     /**
      * @param VirtualCard $virtualCard
      * @return RemoveResult
@@ -96,32 +103,33 @@ class VirtualCardRemoveWrapper
     {
         try {
             $latestBucketState = $this->bucketRepository->getLatestState($virtualCard->getBaseBucket());
-        
+
             $removeResult = $this->virtualCardRemoveHandler->handle($virtualCard, $latestBucketState->getVendor());
-    
+
             $balance = $this->getBalance($virtualCard);
             $this->virtualCardRepository->remove($virtualCard);
             $this->collectBucketWrapper->collect($latestBucketState, $balance);
-        
+
             $this->save();
+
             return $removeResult;
         } catch (Throwable $e) {
             $this->logger->alert($e);
-            
+
             throw $e;
         }
     }
-    
+
     protected function getBalance(VirtualCard $virtualCard): Money
     {
         $balance = VirtualCardHelper::getBalanceAsMoney($virtualCard);
         if ($virtualCard->getCurrency()->getCode() !== CurrencyEntity::DEFAULT) {
             $balance = $this->currencyWrapper->convert($balance, new Currency(CurrencyEntity::DEFAULT));
         }
-        
+
         return $balance;
     }
-    
+
     protected function save(): void
     {
         $this->entityManager->flush();

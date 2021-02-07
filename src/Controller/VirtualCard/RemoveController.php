@@ -8,9 +8,9 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Throwable;
+use VirtualCard\Exception\Http\BadRequestHttpException;
+use VirtualCard\Exception\Http\ServiceUnavailableHttpException;
 use VirtualCard\Exception\VirtualCard\ExpiredVirtualCardException;
 use VirtualCard\Exception\VirtualCard\VirtualCardNotFoundException;
 use VirtualCard\Form\RemoveVirtualCardType;
@@ -20,7 +20,7 @@ use VirtualCard\Traits\LoggerTrait;
 class RemoveController extends AbstractFOSRestController
 {
     use LoggerTrait;
-    
+
     /**
      * Delete virtual card with given id
      *
@@ -100,39 +100,48 @@ class RemoveController extends AbstractFOSRestController
      * @param FormFactoryInterface $formFactory
      * @return Response
      */
-    public function indexAction(Request $request, VirtualCardRemoveWrapper $virtualCardRemoveWrapper, FormFactoryInterface $formFactory): Response
-    {
+    public function indexAction(
+        Request $request,
+        VirtualCardRemoveWrapper $virtualCardRemoveWrapper,
+        FormFactoryInterface $formFactory
+    ): Response {
         $form = $formFactory->create(RemoveVirtualCardType::class);
-    
+
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() === true && $form->isValid() === true) {
             try {
                 $virtualCard = $virtualCardRemoveWrapper->check($form->get('reference')->getData());
                 $result = $virtualCardRemoveWrapper->remove($virtualCard);
-            
-                $view = $this->view($result, 200);
-            
+
+                $view = $this->view($result, Response::HTTP_NO_CONTENT);
+
                 return $this->handleView($view);
             } catch (VirtualCardNotFoundException $e) {
-                $view = $this->view([
-                    'message' => $e->getMessage()
-                ], 404);
-    
+                $view = $this->view(
+                    [
+                        'message' => $e->getMessage(),
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
+
                 return $this->handleView($view);
             } catch (ExpiredVirtualCardException $e) {
-                $view = $this->view([
-                    'message' => $e->getMessage()
-                ], 406);
-    
+                $view = $this->view(
+                    [
+                        'message' => $e->getMessage(),
+                    ],
+                    Response::HTTP_NOT_ACCEPTABLE
+                );
+
                 return $this->handleView($view);
             } catch (Throwable $e) {
                 $this->logger->alert($e);
-            
-                throw new ServiceUnavailableHttpException(null, 'Service is currently unavailable please try again later.');
+
+                throw new ServiceUnavailableHttpException();
             }
         }
-    
-        throw new BadRequestHttpException('Your data that you sent is not valid.');
+
+        throw new BadRequestHttpException();
     }
 }

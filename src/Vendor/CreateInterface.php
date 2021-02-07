@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Vendor;
 
 use VirtualCard\Entity\VirtualCard;

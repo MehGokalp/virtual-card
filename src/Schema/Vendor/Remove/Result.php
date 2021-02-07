@@ -12,7 +12,7 @@ class Result
      * @Assert\NotBlank()
      */
     private $status;
-    
+
     /**
      * @return int|null
      */
@@ -20,7 +20,7 @@ class Result
     {
         return $this->status;
     }
-    
+
     /**
      * @param int|null $status
      * @return Result
@@ -28,7 +28,7 @@ class Result
     public function setStatus(?int $status): Result
     {
         $this->status = $status;
-        
+
         return $this;
     }
 }

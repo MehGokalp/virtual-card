@@ -13,7 +13,7 @@ class CurrencyFixtures extends Fixture
      * @var CurrencyFactory
      */
     private $currencyFactory;
-    
+
     /**
      * CurrencyFixtures constructor.
      * @param CurrencyFactory $currencyFactory
@@ -22,16 +22,16 @@ class CurrencyFixtures extends Fixture
     {
         $this->currencyFactory = $currencyFactory;
     }
-    
+
     /**
      * @param ObjectManager $manager
      * @throws \ValidationException
      */
     public function load(ObjectManager $manager)
     {
-        foreach ([ Currency::USD, Currency::EUR ] AS $code) {
+        foreach ([Currency::USD, Currency::EUR] as $code) {
             $currency = $this->currencyFactory->create($code);
-            
+
             $this->currencyFactory->persist($currency);
             $this->addReference(sprintf('currency_%s', $code), $currency);
         }

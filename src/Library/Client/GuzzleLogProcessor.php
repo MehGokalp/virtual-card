@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Library\Client;
 
 use MongoDate;
@@ -6,7 +7,7 @@ use MongoDate;
 class GuzzleLogProcessor
 {
     public const DELIMITER = '<DELIMITER>';
-    
+
     public const LOG_MESSAGE_TEMPLATE = '{target}'.self::DELIMITER
     .'{req_header_x-method}'.self::DELIMITER
     .'{req_header_x-process-id}'.self::DELIMITER
@@ -16,7 +17,7 @@ class GuzzleLogProcessor
     .'{req_body}'.self::DELIMITER
     .'{res_body}'.self::DELIMITER
     .'{code}';
-    
+
     /**
      * @param array $record
      *
@@ -25,7 +26,7 @@ class GuzzleLogProcessor
     public function __invoke(array $record): array
     {
         $data = $this->parseMessage($record['message']);
-        
+
         return [
             'service' => $data['service'],
             'process_id' => $data['process_id'],
@@ -42,7 +43,7 @@ class GuzzleLogProcessor
             'extra' => array(),
         ];
     }
-    
+
     /**
      * @param $message
      *
@@ -50,8 +51,21 @@ class GuzzleLogProcessor
      */
     public function parseMessage($message): array
     {
-        [$target, $method, $process_id, $service, $req_headers, $res_headers, $request, $response, $code] = explode(self::DELIMITER, $message);
-        
-        return compact('target', 'method', 'process_id', 'service', 'req_headers', 'res_headers', 'request', 'response', 'code');
+        [$target, $method, $process_id, $service, $req_headers, $res_headers, $request, $response, $code] = explode(
+            self::DELIMITER,
+            $message
+        );
+
+        return compact(
+            'target',
+            'method',
+            'process_id',
+            'service',
+            'req_headers',
+            'res_headers',
+            'request',
+            'response',
+            'code'
+        );
     }
 }

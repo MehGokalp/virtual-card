@@ -19,12 +19,12 @@ class RequestOptionsResolver extends OptionsResolver
             'curl' => [
                 CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
             ],
-            'headers' => []
+            'headers' => [],
         ];
-        
+
         $this->setDefaults($defaults);
-        
+
         $this->setRequired(array_keys($defaults));
     }
-    
+
 }

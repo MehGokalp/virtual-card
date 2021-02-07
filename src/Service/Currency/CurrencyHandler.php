@@ -12,12 +12,12 @@ use VirtualCard\Traits\LoggerTrait;
 class CurrencyHandler
 {
     use LoggerTrait;
-    
+
     /**
      * @var iterable|Rate[]
      */
     private $services;
-    
+
     /**
      * CurrencyHandler constructor.
      * @param iterable|Rate[] $services
@@ -26,21 +26,21 @@ class CurrencyHandler
     {
         $this->services = $services;
     }
-    
+
     /**
      * @return CurrencyResult
      * @throws CurrenciesCanNotFetched
      */
     public function handle(): CurrencyResult
     {
-        foreach ($this->services AS $service) {
+        foreach ($this->services as $service) {
             try {
                 return $service->getResult();
-            } catch (Throwable|GuzzleException $e) {
+            } catch (Throwable | GuzzleException $e) {
                 $this->logger->alert($e);
             }
         }
-        
+
         throw new CurrenciesCanNotFetched();
     }
 }

@@ -2,4 +2,6 @@
 
 namespace VirtualCard\Interfaces;
 
-interface ServiceInterface {}
+interface ServiceInterface
+{
+}

@@ -8,7 +8,7 @@ class Result
      * @var int|null
      */
     private $status;
-    
+
     /**
      * @return int
      */
@@ -16,7 +16,7 @@ class Result
     {
         return $this->status;
     }
-    
+
     /**
      * @param int $status
      * @return Result
@@ -24,7 +24,7 @@ class Result
     public function setStatus(?int $status): Result
     {
         $this->status = $status;
-        
+
         return $this;
     }
 }

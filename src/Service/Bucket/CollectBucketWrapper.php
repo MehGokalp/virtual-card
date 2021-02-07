@@ -12,15 +12,14 @@ class CollectBucketWrapper extends AbstractBucketWrapper
     {
         $bucketBalance = BucketHelper::getBalanceAsMoney($bucket);
         $newBalance = $bucketBalance->add($balance);
-        
+
         $reducedBucket = $this->clone($bucket);
         $reducedBucket->setBalance($newBalance->getAmount());
-        
+
         $this
             ->persist($reducedBucket)
-            ->save()
-        ;
-        
+            ->save();
+
         return $reducedBucket;
     }
 }

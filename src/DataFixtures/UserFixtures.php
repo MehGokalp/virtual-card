@@ -13,7 +13,7 @@ class UserFixtures extends Fixture
      * @var UserPasswordEncoderInterface
      */
     private $userPasswordEncoder;
-    
+
     /**
      * UserFixtures constructor.
      * @param UserPasswordEncoderInterface $userPasswordEncoder
@@ -22,12 +22,12 @@ class UserFixtures extends Fixture
     {
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
-    
+
     public function load(ObjectManager $manager)
     {
         $user = new User();
         $user->setEmail('test@virtualcard.com');
-        
+
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, '321321'));
         $user->setApiToken('testapitoken');
 

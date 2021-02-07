@@ -16,13 +16,13 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
      * @var RequestBuilder
      */
     private $requestBuilder;
-    
+
     public function __construct(RequestBuilder $requestBuilder, ClientFactory $clientFactory)
     {
         parent::__construct($clientFactory);
         $this->requestBuilder = $requestBuilder;
     }
-    
+
     /**
      * @param string $method
      * @param string $processId
@@ -36,9 +36,9 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
     {
         $optionsResolver = new RequestOptionsResolver();
         $options = $optionsResolver->resolve($options);
-        
+
         $request = $this->requestBuilder->build($method, $processId);
-        
+
         return $this->send($request, $options);
     }
 }

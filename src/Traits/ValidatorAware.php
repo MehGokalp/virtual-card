@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Traits;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -9,7 +10,7 @@ trait ValidatorAware
      * @var ValidatorInterface
      */
     private $validator;
-    
+
     /**
      * @return ValidatorInterface
      */
@@ -17,7 +18,7 @@ trait ValidatorAware
     {
         return $this->validator;
     }
-    
+
     /**
      * @required
      *

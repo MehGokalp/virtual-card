@@ -11,12 +11,12 @@ class RequestBuilder
      * @var string
      */
     private $webServiceUrl;
-    
+
     public function __construct(string $webServiceUrl)
     {
         $this->webServiceUrl = $webServiceUrl;
     }
-    
+
     /**
      * @return RequestInterface
      */
@@ -26,9 +26,9 @@ class RequestBuilder
             'X-Service' => 'Mocky',
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ];
-        
+
         return new Request('GET', $this->webServiceUrl, $headers);
     }
 }

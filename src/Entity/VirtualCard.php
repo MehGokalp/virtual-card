@@ -2,6 +2,7 @@
 
 namespace VirtualCard\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -16,10 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class VirtualCard
 {
-    use SoftDeleteableEntity,
-        BlameableEntity,
-        TimestampableEntity;
-    
+    use BlameableEntity;
+    use SoftDeleteableEntity;
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -126,24 +127,24 @@ class VirtualCard
         return $this;
     }
 
-    public function getActivationDate(): ?\DateTimeInterface
+    public function getActivationDate(): ?DateTimeInterface
     {
         return $this->activationDate;
     }
 
-    public function setActivationDate(\DateTimeInterface $activationDate): self
+    public function setActivationDate(DateTimeInterface $activationDate): self
     {
         $this->activationDate = $activationDate;
 
         return $this;
     }
 
-    public function getExpireDate(): ?\DateTimeInterface
+    public function getExpireDate(): ?DateTimeInterface
     {
         return $this->expireDate;
     }
 
-    public function setExpireDate(\DateTimeInterface $expireDate): self
+    public function setExpireDate(DateTimeInterface $expireDate): self
     {
         $this->expireDate = $expireDate;
 

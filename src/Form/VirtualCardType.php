@@ -19,35 +19,52 @@ class VirtualCardType extends AbstractType
     {
         $builder
             ->add('processId', TextType::class)
-            ->add('activationDate', DateTimeType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd'
-            ])
-            ->add('expireDate', DateTimeType::class, [
-                'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd'
-            ])
+            ->add(
+                'activationDate',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                ]
+            )
+            ->add(
+                'expireDate',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',
+                ]
+            )
             ->add('balance', IntegerType::class)
-            ->add('currency', EntityType::class, [
-                'choice_value' => 'code',
-                'choice_label' => 'code',
-                'class' => Currency::class,
-            ])
-            ->add('notes', TextType::class, [
-                'required' => false
-            ])
-        ;
+            ->add(
+                'currency',
+                EntityType::class,
+                [
+                    'choice_value' => 'code',
+                    'choice_label' => 'code',
+                    'class' => Currency::class,
+                ]
+            )
+            ->add(
+                'notes',
+                TextType::class,
+                [
+                    'required' => false,
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => VirtualCard::class,
-            'method' => Request::METHOD_PUT,
-            'csrf_protection' => false
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => VirtualCard::class,
+                'method' => Request::METHOD_PUT,
+                'csrf_protection' => false,
+            ]
+        );
     }
-    
+
     public function getBlockPrefix()
     {
         return null;

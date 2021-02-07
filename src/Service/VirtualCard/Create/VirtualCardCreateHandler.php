@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\VirtualCard\Create;
 
 use VirtualCard\Entity\Vendor;
@@ -9,6 +10,7 @@ use VirtualCard\Service\VendorServiceLoader;
 use VirtualCard\Traits\ValidatorAware;
 use VirtualCard\Traits\VendorServiceLoaderAware;
 use VirtualCard\Vendor\CreateInterface;
+
 use function count;
 
 /**
@@ -18,9 +20,8 @@ use function count;
 class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
 {
     use VendorServiceLoaderAware,
-        ValidatorAware
-    ;
-    
+        ValidatorAware;
+
     /**
      * This handler sends requests to vendor's web service
      * after then it processes it's response
@@ -40,26 +41,25 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
          * @var CreateInterface $service
          */
         $service = $this->vendorServiceLoader->get($vendorSlug, VendorServiceLoader::CREATE);
-        
+
         $vendorResult = $service->getResult($virtualCard);
-        
+
         $errors = $this->validator->validate($vendorResult);
-        
+
         if (count($errors) > 0) {
-            throw new ValidationException((string) $errors);
+            throw new ValidationException((string)$errors);
         }
-        
+
         // MOCKED CODE REQUIREMENT
         // We're using mocked service, it'll always return a static response
         // Because of our architecture it must send unique reference key
         // Instead of static, so we're generating this scenario
-        $vendorResult->setReference($vendorResult->getReference() . strtoupper(uniqid('', true)));
-        
+        $vendorResult->setReference($vendorResult->getReference().strtoupper(uniqid('', true)));
+
         return (new CreateResult())
             ->setCardNumber($vendorResult->getCardNumber())
             ->setCvc($vendorResult->getCvc())
             ->setReference($vendorResult->getReference())
-            ->setVendor($vendorSlug)
-        ;
+            ->setVendor($vendorSlug);
     }
 }

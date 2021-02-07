@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\Client;
 
 use GuzzleHttp\Client as GuzzleClient;
@@ -16,12 +17,12 @@ class ClientFactory
      * @var MongoClient
      */
     protected $mongo;
-    
+
     /**
      * @var string
      */
     private $mongoDatabaseName;
-    
+
     /**
      * MultiClient constructor.
      * @param MongoClient $mongo
@@ -32,7 +33,7 @@ class ClientFactory
         $this->mongo = $mongo;
         $this->mongoDatabaseName = $mongoDatabaseName;
     }
-    
+
     /**
      * @param array $options
      * @param string $mongoCollectionName
@@ -42,13 +43,13 @@ class ClientFactory
     {
         $handlerStack = HandlerStack::create();
         $logHandler = [new MongoDBHandler($this->mongo, $this->mongoDatabaseName, $mongoCollectionName)];
-        
+
         $logger = new Logger(
             'client_logger',
             $logHandler,
             [new GuzzleLogProcessor()]
         );
-        
+
         $handlerStack->push(
             Middleware::log(
                 $logger,
@@ -57,7 +58,7 @@ class ClientFactory
                 )
             )
         );
-        
+
         return new GuzzleClient(array_merge(['handler' => $handlerStack], $options));
     }
 }

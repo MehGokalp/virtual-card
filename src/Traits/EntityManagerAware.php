@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Traits;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,7 +10,7 @@ trait EntityManagerAware
      * @var EntityManagerInterface
      */
     private $entityManager;
-    
+
     /**
      * @return EntityManagerInterface
      */
@@ -17,7 +18,7 @@ trait EntityManagerAware
     {
         return $this->entityManager;
     }
-    
+
     /**
      * @required
      *

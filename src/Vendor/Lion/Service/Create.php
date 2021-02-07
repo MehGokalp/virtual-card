@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Vendor\Lion\Service;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -17,12 +18,12 @@ class Create implements CreateInterface, VendorServiceInterface
      * @var ClientWrapper
      */
     private $clientWrapper;
-    
+
     public function __construct(ClientWrapper $clientWrapper)
     {
         $this->clientWrapper = $clientWrapper;
     }
-    
+
     /**
      * @param VirtualCard $virtualCard
      * @return CreateResult
@@ -32,7 +33,7 @@ class Create implements CreateInterface, VendorServiceInterface
     public function getResult(VirtualCard $virtualCard): CreateResult
     {
         $response = $this->clientWrapper->request(VendorServiceLoader::CREATE, $virtualCard->getProcessId());
-        
-        return CreateResponseParser::parse((string) $response->getBody());
+
+        return CreateResponseParser::parse((string)$response->getBody());
     }
 }

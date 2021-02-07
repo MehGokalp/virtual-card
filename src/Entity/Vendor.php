@@ -16,7 +16,7 @@ class Vendor
     public const BEAR = 'bear';
     public const LION = 'lion';
     public const RHINO = 'rhino';
-    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -95,7 +95,7 @@ class Vendor
 
         return $this;
     }
-    
+
     /**
      * @return Collection|Bucket[]
      */

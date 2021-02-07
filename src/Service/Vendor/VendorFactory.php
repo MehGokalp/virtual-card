@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Service\Vendor;
 
 use VirtualCard\Entity\Vendor;
@@ -9,7 +10,7 @@ use VirtualCard\Traits\ValidatorAware;
 class VendorFactory extends AbstractFactory
 {
     use ValidatorAware;
-    
+
     /**
      * @param string $slug
      * @param int $bucketDateDelta
@@ -21,19 +22,18 @@ class VendorFactory extends AbstractFactory
     public function create(string $slug, int $bucketDateDelta, int $bucketLimit): Vendor
     {
         $vendor = new Vendor();
-        
+
         $vendor
             ->setSlug($slug)
             ->setBucketDateDelta($bucketDateDelta)
-            ->setBucketLimit($bucketLimit)
-        ;
-        
+            ->setBucketLimit($bucketLimit);
+
         $errors = $this->validator->validate($vendor);
-    
+
         if (count($errors) > 0) {
-            throw new ValidationException((string) $errors);
+            throw new ValidationException((string)$errors);
         }
-        
+
         return $vendor;
     }
 }

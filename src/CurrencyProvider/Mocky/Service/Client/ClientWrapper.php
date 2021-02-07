@@ -15,13 +15,13 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
      * @var RequestBuilder
      */
     private $requestBuilder;
-    
+
     public function __construct(RequestBuilder $requestBuilder, ClientFactory $clientFactory)
     {
         parent::__construct($clientFactory);
         $this->requestBuilder = $requestBuilder;
     }
-    
+
     /**
      * @param array $options
      * @return ResponseInterface
@@ -32,9 +32,9 @@ class ClientWrapper extends AbstractClientWrapper implements ClientWrapperInterf
     {
         $optionsResolver = new RequestOptionsResolver();
         $options = $optionsResolver->resolve($options);
-        
+
         $request = $this->requestBuilder->build();
-        
+
         return $this->send($request, $options, 'currency_provider_logs');
     }
 }

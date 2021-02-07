@@ -15,12 +15,12 @@ class Rate implements RateInterface, CurrencyServiceInterface
      * @var ClientWrapper
      */
     private $clientWrapper;
-    
+
     public function __construct(ClientWrapper $clientWrapper)
     {
         $this->clientWrapper = $clientWrapper;
     }
-    
+
     /**
      * @return CurrencyResult
      * @throws GuzzleException
@@ -28,7 +28,7 @@ class Rate implements RateInterface, CurrencyServiceInterface
     public function getResult(): CurrencyResult
     {
         $response = $this->clientWrapper->request();
-    
-        return CurrencyResponseParser::parse((string) $response->getBody());
+
+        return CurrencyResponseParser::parse((string)$response->getBody());
     }
 }

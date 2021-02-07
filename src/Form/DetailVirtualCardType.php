@@ -14,22 +14,27 @@ class DetailVirtualCardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
+            ->add(
+                'reference',
+                TextType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-        ;
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'method' => Request::METHOD_GET,
-            'csrf_protection' => false
-        ]);
+        $resolver->setDefaults(
+            [
+                'method' => Request::METHOD_GET,
+                'csrf_protection' => false,
+            ]
+        );
     }
-    
+
     public function getBlockPrefix()
     {
         return null;

@@ -1,4 +1,5 @@
 <?php
+
 namespace VirtualCard\Traits;
 
 use Psr\Log\LoggerInterface;
@@ -10,7 +11,7 @@ trait LoggerTrait
      * @var LoggerInterface
      */
     protected $logger;
-    
+
     /**
      * @return LoggerInterface
      */
@@ -18,12 +19,13 @@ trait LoggerTrait
     {
         if ($this->logger === null) {
             @trigger_error(sprintf('%s dependency not found. Using %s', LoggerInterface::class, NullLogger::class));
+
             return new NullLogger();
         }
-        
+
         return $this->logger;
     }
-    
+
     /**
      * @required
      *
@@ -33,7 +35,7 @@ trait LoggerTrait
     public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
-        
+
         return $this;
     }
 }

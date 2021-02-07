@@ -12,20 +12,19 @@ class SpendBucketWrapper extends AbstractBucketWrapper
     {
         return BucketHelper::getBalanceAsMoney($bucket)->greaterThanOrEqual($amount);
     }
-    
+
     public function spend(Bucket $bucket, Money $balance): Bucket
     {
         $bucketBalance = BucketHelper::getBalanceAsMoney($bucket);
         $newBalance = $bucketBalance->subtract($balance);
-        
+
         $reducedBucket = $this->clone($bucket);
         $reducedBucket->setBalance($newBalance->getAmount());
-        
+
         $this
             ->persist($reducedBucket)
-            ->save()
-        ;
-        
+            ->save();
+
         return $reducedBucket;
     }
 }
