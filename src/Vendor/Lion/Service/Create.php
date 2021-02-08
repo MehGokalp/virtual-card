@@ -14,9 +14,7 @@ use VirtualCard\Vendor\VendorServiceInterface;
 
 class Create implements CreateInterface, VendorServiceInterface
 {
-    /**
-     * @var ClientWrapper
-     */
+    /** @var ClientWrapper */
     private $clientWrapper;
 
     public function __construct(ClientWrapper $clientWrapper)
@@ -32,7 +30,12 @@ class Create implements CreateInterface, VendorServiceInterface
      */
     public function getResult(array $virtualCard): CreateResult
     {
-        $response = $this->clientWrapper->request(VendorServiceLoader::CREATE, $virtualCard->getProcessId());
+        $response = $this->clientWrapper->request(VendorServiceLoader::CREATE, http_build_query([
+            'currency' => $virtualCard['currency']->getCode(),
+            'activationDate' => $virtualCard['activationDate']->format('Y-m-d'),
+            'expireDate' => $virtualCard['expireDate']->format('Y-m-d'),
+            'balance' => $virtualCard['balance'],
+        ]), $virtualCard['processId']);
 
         return CreateResponseParser::parse((string)$response->getBody());
     }

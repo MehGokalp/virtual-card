@@ -10,14 +10,20 @@ use VirtualCard\Vendor\RequestBuilderInterface;
 
 class RequestBuilder implements RequestBuilderInterface
 {
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    public function __construct(Router $router)
+    /** @var string */
+    private $username;
+
+    /** @var string */
+    private $password;
+
+    public function __construct(Router $router, string $username, string $password)
     {
         $this->router = $router;
+        $this->username = $username;
+        $this->password = $password;
     }
 
     /**
@@ -35,7 +41,8 @@ class RequestBuilder implements RequestBuilderInterface
             'X-Service' => Vendor::LION,
             'Accept-Encoding' => 'gzip',
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Authorization' => sprintf('Basic %s', base64_encode(sprintf('%s:%s', $this->username, $this->password))),
         ];
 
         [$httpMethod, $url] = $this->router->getRoute($method);

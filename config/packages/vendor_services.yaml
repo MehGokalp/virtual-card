@@ -22,3 +22,8 @@ services:
     VirtualCard\Service\Client\ClientFactory:
         arguments:
             $mongoDatabaseName: 'virtual_card'
+
+    VirtualCard\Vendor\Lion\Service\Client\RequestBuilder:
+        arguments:
+            $username: '%env(VENDOR_LION_USERNAME)%'
+            $password: '%env(VENDOR_LION_PASSWORD)%'

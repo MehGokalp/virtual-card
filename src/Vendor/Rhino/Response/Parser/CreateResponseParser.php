@@ -13,11 +13,11 @@ class CreateResponseParser
         return (new Result())
             ->setReference($parsedResponse['reference'])
             ->setCvc($parsedResponse['cvc'])
-            ->setCardNumber($parsedResponse['cardNumber'])
+            ->setCardNumber($parsedResponse['card_number'])
             ->setCurrency($parsedResponse['currency'])
             ->setBalance($parsedResponse['balance'])
-            ->setActivationDate(new \DateTime($parsedResponse['activationDate']))
-            ->setExpireDate(new \DateTime($parsedResponse['expireDate']))
+            ->setActivationDate(new \DateTime($parsedResponse['activation_date']))
+            ->setExpireDate(new \DateTime($parsedResponse['expire_date']))
         ;
     }
 }
