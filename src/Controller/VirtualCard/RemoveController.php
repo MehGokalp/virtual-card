@@ -5,15 +5,12 @@ namespace VirtualCard\Controller\VirtualCard;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use VirtualCard\Exception\Http\BadRequestHttpException;
 use VirtualCard\Exception\Http\ServiceUnavailableHttpException;
 use VirtualCard\Exception\VirtualCard\ExpiredVirtualCardException;
 use VirtualCard\Exception\VirtualCard\VirtualCardNotFoundException;
-use VirtualCard\Form\RemoveVirtualCardType;
 use VirtualCard\Service\VirtualCard\Remove\VirtualCardRemoveWrapper;
 use VirtualCard\Traits\LoggerTrait;
 

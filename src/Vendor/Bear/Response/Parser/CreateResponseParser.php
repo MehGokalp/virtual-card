@@ -2,6 +2,7 @@
 
 namespace VirtualCard\Vendor\Bear\Response\Parser;
 
+use DateTime;
 use VirtualCard\Schema\Vendor\Create\Result;
 
 class CreateResponseParser
@@ -16,7 +17,7 @@ class CreateResponseParser
             ->setCardNumber($parsedResponse['cardNumber'])
             ->setCurrency($parsedResponse['currency'])
             ->setBalance($parsedResponse['balance'])
-            ->setActivationDate(new \DateTime($parsedResponse['activationDate']))
-            ->setExpireDate(new \DateTime($parsedResponse['expireDate']));
+            ->setActivationDate(new DateTime($parsedResponse['activationDate']))
+            ->setExpireDate(new DateTime($parsedResponse['expireDate']));
     }
 }

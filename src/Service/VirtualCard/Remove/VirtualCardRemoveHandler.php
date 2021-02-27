@@ -16,8 +16,8 @@ use function count;
 
 class VirtualCardRemoveHandler implements VirtualCardRemoveHandlerInterface
 {
-    use VendorServiceLoaderAware,
-        ValidatorAware;
+    use ValidatorAware;
+    use VendorServiceLoaderAware;
 
     /**
      * This handler sends requests to vendor's web service

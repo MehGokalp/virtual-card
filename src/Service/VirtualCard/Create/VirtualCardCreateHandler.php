@@ -3,7 +3,6 @@
 namespace VirtualCard\Service\VirtualCard\Create;
 
 use VirtualCard\Entity\Vendor;
-use VirtualCard\Entity\VirtualCard;
 use VirtualCard\Exception\ValidationException;
 use VirtualCard\Schema\VirtualCard\Create\Result as CreateResult;
 use VirtualCard\Service\VendorServiceLoader;
@@ -56,7 +55,6 @@ class VirtualCardCreateHandler implements VirtualCardCreateHandlerInterface
             ->setBalance($resultDTO->getBalance())
             ->setActivationDate($resultDTO->getActivationDate())
             ->setExpireDate($resultDTO->getExpireDate())
-            ->setVendor($vendorSlug)
-        ;
+            ->setVendor($vendorSlug);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace VirtualCard\Schema\Vendor\Create;
 
+use DateTimeInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Result
@@ -44,14 +45,14 @@ class Result
     private $balance;
 
     /**
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      *
      * @Assert\NotBlank()
      */
     private $activationDate;
 
     /**
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      *
      * @Assert\NotBlank()
      */
@@ -153,18 +154,18 @@ class Result
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getActivationDate(): \DateTimeInterface
+    public function getActivationDate(): DateTimeInterface
     {
         return $this->activationDate;
     }
 
     /**
-     * @param \DateTimeInterface $activationDate
+     * @param DateTimeInterface $activationDate
      * @return Result
      */
-    public function setActivationDate(\DateTimeInterface $activationDate): Result
+    public function setActivationDate(DateTimeInterface $activationDate): Result
     {
         $this->activationDate = $activationDate;
 
@@ -172,18 +173,18 @@ class Result
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getExpireDate(): \DateTimeInterface
+    public function getExpireDate(): DateTimeInterface
     {
         return $this->expireDate;
     }
 
     /**
-     * @param \DateTimeInterface $expireDate
+     * @param DateTimeInterface $expireDate
      * @return Result
      */
-    public function setExpireDate(\DateTimeInterface $expireDate): Result
+    public function setExpireDate(DateTimeInterface $expireDate): Result
     {
         $this->expireDate = $expireDate;
 

@@ -2,6 +2,7 @@
 
 namespace VirtualCard\Vendor\Rhino\Response\Parser;
 
+use DateTime;
 use VirtualCard\Schema\Vendor\Create\Result;
 
 class CreateResponseParser
@@ -16,8 +17,7 @@ class CreateResponseParser
             ->setCardNumber($parsedResponse['card_number'])
             ->setCurrency($parsedResponse['currency'])
             ->setBalance($parsedResponse['balance'])
-            ->setActivationDate(new \DateTime($parsedResponse['activation_date']))
-            ->setExpireDate(new \DateTime($parsedResponse['expire_date']))
-        ;
+            ->setActivationDate(new DateTime($parsedResponse['activation_date']))
+            ->setExpireDate(new DateTime($parsedResponse['expire_date']));
     }
 }

@@ -4,7 +4,6 @@ namespace VirtualCard\Exception\VirtualCard;
 
 use Exception;
 use Throwable;
-use VirtualCard\Entity\VirtualCard;
 
 class NoMatchingBucketException extends Exception
 {

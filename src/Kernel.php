@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use VirtualCard\DependencyInjection\VendorServiceExtension;
 
+use function dirname;
+
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
@@ -28,7 +30,7 @@ class Kernel extends BaseKernel
 
     public function getProjectDir(): string
     {
-        return \dirname(__DIR__);
+        return dirname(__DIR__);
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void

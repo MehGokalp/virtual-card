@@ -21,8 +21,8 @@ use VirtualCard\Traits\LoggerTrait;
 
 class VirtualCardRemoveWrapper
 {
-    use LoggerTrait,
-        EntityManagerAware;
+    use EntityManagerAware;
+    use LoggerTrait;
 
     /**
      * @var BucketRepository

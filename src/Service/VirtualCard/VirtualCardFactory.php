@@ -3,13 +3,11 @@
 namespace VirtualCard\Service\VirtualCard;
 
 use VirtualCard\Entity\Bucket;
-use VirtualCard\Entity\Currency;
 use VirtualCard\Entity\VirtualCard;
 use VirtualCard\Exception\ValidationException;
 use VirtualCard\Repository\CurrencyRepository;
 use VirtualCard\Schema\VirtualCard\Create\Result as CreateResult;
 use VirtualCard\Service\Factory\AbstractFactory;
-use VirtualCard\Traits\EntityManagerAware;
 use VirtualCard\Traits\ValidatorAware;
 
 class VirtualCardFactory extends AbstractFactory

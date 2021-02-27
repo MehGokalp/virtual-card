@@ -11,7 +11,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use VirtualCard\Entity\Currency;
-use VirtualCard\Entity\VirtualCard;
 
 class VirtualCardType extends AbstractType
 {
