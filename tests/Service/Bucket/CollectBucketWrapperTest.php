@@ -2,6 +2,7 @@
 
 namespace VirtualCard\Tests\Service\Bucket;
 
+use InvalidArgumentException;
 use Money\Money;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use VirtualCard\Entity\Bucket;
@@ -35,20 +36,6 @@ class CollectBucketWrapperTest extends TestCase
         $this->mock = $mock;
     }
 
-    protected function createBucket(int $balance): Bucket
-    {
-        $bucket = new Bucket();
-        $bucket->setBalance($balance);
-        $bucket->setCurrency((new Currency())->setCode(Currency::EUR));
-
-        return $bucket;
-    }
-
-    protected function createMoney(int $amount, string $currency): Money
-    {
-        return new Money($amount, new \Money\Currency($currency));
-    }
-
     public function testSuccessClone(): void
     {
         $balance = 1000000;
@@ -74,9 +61,23 @@ class CollectBucketWrapperTest extends TestCase
         self::assertSame($cloned->getBase(), $base);
     }
 
+    protected function createBucket(int $balance): Bucket
+    {
+        $bucket = new Bucket();
+        $bucket->setBalance($balance);
+        $bucket->setCurrency((new Currency())->setCode(Currency::EUR));
+
+        return $bucket;
+    }
+
+    protected function createMoney(int $amount, string $currency): Money
+    {
+        return new Money($amount, new \Money\Currency($currency));
+    }
+
     public function testDifferentCurrency(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $bucket = $this->createBucket(1111);
         $this->mock->collect($bucket, $this->createMoney(5, Currency::USD));

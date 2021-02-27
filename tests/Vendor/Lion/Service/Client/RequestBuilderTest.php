@@ -23,28 +23,28 @@ class RequestBuilderTest extends TestCase
     {
         $request = $this->builder->build(VendorServiceLoader::CREATE, 'testprocess');
 
-        self::assertSame('GET', $request->getMethod());
+        self::assertSame('POST', $request->getMethod());
         self::assertSame(self::CREATE_MOCK_SERVICE_URL, $request->getUri()->__toString());
         self::assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
         self::assertSame(VendorServiceLoader::CREATE, $request->getHeaderLine('X-Method'));
         self::assertSame(Vendor::LION, $request->getHeaderLine('X-Service'));
         self::assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
         self::assertSame('application/json', $request->getHeaderLine('Accept'));
-        self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
+        self::assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
     }
 
     public function testRemoveRequest(): void
     {
         $request = $this->builder->build(VendorServiceLoader::REMOVE, 'testprocess');
 
-        self::assertSame('GET', $request->getMethod());
+        self::assertSame('DELETE', $request->getMethod());
         self::assertSame(self::REMOVE_MOCK_SERVICE_URL, $request->getUri()->__toString());
         self::assertSame('testprocess', $request->getHeaderLine('X-Process-Id'));
         self::assertSame(VendorServiceLoader::REMOVE, $request->getHeaderLine('X-Method'));
         self::assertSame(Vendor::LION, $request->getHeaderLine('X-Service'));
         self::assertSame('gzip', $request->getHeaderLine('Accept-Encoding'));
         self::assertSame('application/json', $request->getHeaderLine('Accept'));
-        self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
+        self::assertSame('application/x-www-form-urlencoded', $request->getHeaderLine('Content-Type'));
     }
 
     public function testRouteNotFound(): void
@@ -56,6 +56,10 @@ class RequestBuilderTest extends TestCase
 
     protected function setUp()
     {
-        $this->builder = new RequestBuilder(new Router(self::CREATE_MOCK_SERVICE_URL, self::REMOVE_MOCK_SERVICE_URL));
+        $this->builder = new RequestBuilder(
+            new Router(self::CREATE_MOCK_SERVICE_URL, self::REMOVE_MOCK_SERVICE_URL),
+            'testusername',
+            'testpass'
+        );
     }
 }
