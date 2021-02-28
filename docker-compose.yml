@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+    nginx:
+        image: nginx:1.19-alpine
+        container_name: vc_nginx
+        restart: on-failure
+        volumes:
+            - './:/var/www'
+            - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+        ports:
+            - '8080:80'
+        depends_on:
+            - mysql
+            - mongo
+            - redis
+            - app
+        networks:
+            - vc-network
+    mysql:
+        image: mysql:5.7
+        container_name: vc_mysql
+        restart: on-failure
+        environment:
+            MYSQL_DATABASE: "virtual_card"
+            MYSQL_ROOT_PASSWORD: "123456"
+        networks:
+            - vc-network
+    app:
+        container_name: vc_php
+        build:
+            context: .
+            dockerfile: php.Dockerfile
+        restart: on-failure
+        networks:
+            - vc-network
+    mongo:
+        image: mongo:4.4-bionic
+        container_name: vc_mongo
+        restart: on-failure
+        command: --storageEngine wiredTiger
+        networks:
+            - vc-network
+    redis:
+        image: redis:6.2-alpine
+        container_name: vc_redis
+        restart: on-failure
+        networks:
+            - vc-network
+    adminer:
+        image: adminer:latest
+        restart: on-failure
+        ports:
+            - '8180:8080'
+        networks:
+            - vc-network
+networks:
+    vc-network:

@@ -1,0 +1,5 @@
+vendor
+postman
+var/cache
+var/log
+.env
